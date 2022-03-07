@@ -17,10 +17,20 @@ export abstract class Base {
     });
   }
 
+  private setCookies(cookies: string[] | undefined) {
+    if (!cookies) return;
+
+    this.axiosInstance.defaults.headers.common["Cookie"] = cookies[0];
+  }
+
   protected async getRequest<T>(endpoint: string, config?: AxiosRequestConfig) {
     return this.axiosInstance
       .get<any, AxiosResponse<T>, any>(endpoint, config)
-      .then((result) => result.data)
+      .then((response) => {
+        const cookies = response.headers["set-cookie"];
+        this.setCookies(cookies);
+        return response.data;
+      })
       .catch((error) => {
         throw error;
       });
@@ -33,7 +43,11 @@ export abstract class Base {
   ) {
     return this.axiosInstance
       .post<any, AxiosResponse<T>, any>(endpoint, data, config)
-      .then((result) => result.data)
+      .then((response) => {
+        const cookies = response.headers["set-cookie"];
+        this.setCookies(cookies);
+        return response.data;
+      })
       .catch((error) => {
         throw error;
       });
@@ -45,7 +59,11 @@ export abstract class Base {
   ) {
     return this.axiosInstance
       .delete<any, AxiosResponse<T>, any>(endpoint, config)
-      .then((result) => result.data)
+      .then((response) => {
+        const cookies = response.headers["set-cookie"];
+        this.setCookies(cookies);
+        return response.data;
+      })
       .catch((error) => {
         throw error;
       });

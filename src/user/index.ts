@@ -21,7 +21,7 @@ const resourceName = "user";
 
 export class User extends Base {
   //TODO: maybe better implementation
-  signupUser({ user_name, password, mnemonic }: UserSignUpBody) {
+  userSignup({ user_name, password, mnemonic }: UserSignUpBody) {
     return this.postRequest<UserSignUpResponse<typeof mnemonic>>(
       `${resourceName}/signup`,
       {
@@ -32,14 +32,14 @@ export class User extends Base {
     );
   }
 
-  loginUser({ user_name, password }: UserLoginBody) {
+  userLogin({ user_name, password }: UserLoginBody) {
     return this.postRequest<UserLoginResponse>(`${resourceName}/login`, {
       user_name,
       password,
     });
   }
 
-  importUser({ user_name, password, address, mnemonic }: UserImportBody) {
+  userImport({ user_name, password, address, mnemonic }: UserImportBody) {
     return this.postRequest<UserImportResponse>(`${resourceName}/import`, {
       user_name,
       password,

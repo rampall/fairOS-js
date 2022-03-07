@@ -15,7 +15,10 @@ export type UserLoginBody = {
   password: string;
 };
 
-export type UserLoginResponse = string;
+export type UserLoginResponse = {
+  message: string;
+  code: number;
+};
 
 //TODO: maybe better type
 export type UserImportBody = {
@@ -46,7 +49,10 @@ export type UserLoggedInResponse = {
   loggedin: boolean;
 };
 
-export type UserLogoutResponse = string;
+export type UserLogoutResponse = {
+  message: string;
+  code: number;
+};
 
 export type UserExportResponse = {
   user_name: string;
@@ -57,9 +63,14 @@ export type UserDeleteBody = {
   password: string;
 };
 
-export type UserDeleteResponse = string;
+export type UserDeleteResponse = {
+  message: string;
+  code: number;
+};
 
+//TODO: reference or address
 export type UserStatReponse = {
   user_name: string;
-  reference: string;
+  reference?: string;
+  address?: string;
 };
