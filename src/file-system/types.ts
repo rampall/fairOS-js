@@ -3,7 +3,7 @@ import { BaseResponse } from "../types";
 export type Compression = "gzip" | "snappy";
 
 export interface FSMakeDirParams {
-  pod_name: string;
+  pod_name?: string;
   dir_path: string;
 }
 
