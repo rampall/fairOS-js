@@ -101,3 +101,11 @@ export interface DocGetParams {
 }
 
 export interface DocGetResponse extends BaseResponse {}
+
+export interface DocDeleteParams {
+  pod_name: string;
+  table_name: string;
+  id: string;
+}
+
+export interface DocDeleteResponse extends BaseResponse {}
