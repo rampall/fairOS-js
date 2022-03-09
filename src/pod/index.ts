@@ -1,13 +1,13 @@
 import { Base } from "../base";
 import {
-  PodCloseBody,
+  PodCloseParams,
   PodCloseResponse,
-  PodDeleteBody,
+  PodDeleteParams,
   PodDeleteResponse,
   PodListResponse,
-  PodNewBody,
+  PodNewParams,
   PodNewResponse,
-  PodOpenBody,
+  PodOpenParams,
   PodOpenResponse,
   PodPresentParams,
   PodPresentResponse,
@@ -15,11 +15,11 @@ import {
   PodReceiveInfoResponse,
   PodReceiveParams,
   PodReceiveResponse,
-  PodSharebody,
+  PodShareParams,
   PodShareResponse,
   PodStatParams,
   PodStatResponse,
-  PodSyncBody,
+  PodSyncParams,
   PodSyncResponse,
 } from "./types";
 
@@ -45,40 +45,40 @@ export class Pod extends Base {
     });
   }
 
-  podNew({ pod_name, password }: PodNewBody) {
+  podNew({ pod_name, password }: PodNewParams) {
     return this.postRequest<PodNewResponse>(`${resourceName}/new`, {
       pod_name,
       password,
     });
   }
 
-  podOpen({ pod_name, password }: PodOpenBody) {
+  podOpen({ pod_name, password }: PodOpenParams) {
     return this.postRequest<PodOpenResponse>(`${resourceName}/open`, {
       pod_name,
       password,
     });
   }
 
-  podClose({ pod_name }: PodCloseBody) {
+  podClose({ pod_name }: PodCloseParams) {
     return this.postRequest<PodCloseResponse>(`${resourceName}/close`, {
       pod_name,
     });
   }
 
-  podSync({ pod_name }: PodSyncBody) {
+  podSync({ pod_name }: PodSyncParams) {
     return this.postRequest<PodSyncResponse>(`${resourceName}/sync`, {
       pod_name,
     });
   }
 
-  podShare({ pod_name, password }: PodSharebody) {
+  podShare({ pod_name, password }: PodShareParams) {
     return this.postRequest<PodShareResponse>(`${resourceName}/share`, {
       pod_name,
       password,
     });
   }
 
-  podDelete({ pod_name, password }: PodDeleteBody) {
+  podDelete({ pod_name, password }: PodDeleteParams) {
     return this.postRequest<PodDeleteResponse>(`${resourceName}/delete`, {
       pod_name,
       password,

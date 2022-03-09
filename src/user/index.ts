@@ -1,10 +1,10 @@
 import { Base } from "../base";
 import {
-  UserSignUpBody,
+  UserSignUpParams,
   UserSignUpResponse,
-  UserLoginBody,
+  UserLoginParams,
   UserLoginResponse,
-  UserImportBody,
+  UserImportParams,
   UserImportResponse,
   UserPresentParams,
   UserPresentResponse,
@@ -12,7 +12,7 @@ import {
   UserLoggedInResponse,
   UserLogoutResponse,
   UserExportResponse,
-  UserDeleteBody,
+  UserDeleteParams,
   UserStatReponse,
   UserDeleteResponse,
 } from "./types";
@@ -21,7 +21,7 @@ const resourceName = "user";
 
 export class User extends Base {
   //TODO: maybe better implementation
-  userSignup({ user_name, password, mnemonic }: UserSignUpBody) {
+  userSignup({ user_name, password, mnemonic }: UserSignUpParams) {
     return this.postRequest<UserSignUpResponse<typeof mnemonic>>(
       `${resourceName}/signup`,
       {
@@ -32,14 +32,14 @@ export class User extends Base {
     );
   }
 
-  userLogin({ user_name, password }: UserLoginBody) {
+  userLogin({ user_name, password }: UserLoginParams) {
     return this.postRequest<UserLoginResponse>(`${resourceName}/login`, {
       user_name,
       password,
     });
   }
 
-  userImport({ user_name, password, address, mnemonic }: UserImportBody) {
+  userImport({ user_name, password, address, mnemonic }: UserImportParams) {
     return this.postRequest<UserImportResponse>(`${resourceName}/import`, {
       user_name,
       password,
@@ -72,7 +72,7 @@ export class User extends Base {
     return this.postRequest<UserExportResponse>(`${resourceName}/export`);
   }
 
-  userDelete({ password }: UserDeleteBody) {
+  userDelete({ password }: UserDeleteParams) {
     return this.deleteRequest<UserDeleteResponse>(`${resourceName}/delete`, {
       data: {
         password,

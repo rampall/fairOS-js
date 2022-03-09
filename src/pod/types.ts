@@ -18,33 +18,33 @@ export interface PodReceiveParams {
 
 export interface PodReceiveResponse extends BaseResponse {}
 
-export interface PodNewBody {
+export interface PodNewParams {
   pod_name: string;
   password: string;
 }
 
 export interface PodNewResponse extends BaseResponse {}
 
-export interface PodOpenBody {
+export interface PodOpenParams {
   pod_name: string;
   password: string;
 }
 
 export interface PodOpenResponse extends BaseResponse {}
 
-export interface PodCloseBody {
+export interface PodCloseParams {
   pod_name: string;
 }
 
 export interface PodCloseResponse extends BaseResponse {}
 
-export interface PodSyncBody {
+export interface PodSyncParams {
   pod_name: string;
 }
 
 export interface PodSyncResponse extends BaseResponse {}
 
-export interface PodSharebody {
+export interface PodShareParams {
   pod_name: string;
   password: string;
 }
@@ -53,7 +53,7 @@ export interface PodShareResponse {
   pod_sharing_reference: string;
 }
 
-export interface PodDeleteBody {
+export interface PodDeleteParams {
   pod_name: string;
   password: string;
 }

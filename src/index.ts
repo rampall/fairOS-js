@@ -11,4 +11,4 @@ class FairOS extends Base {}
 interface FairOS extends User, Pod, FileSystem, KeyValueStore, DocumentDB {}
 applyMixins(FairOS, [User, Pod, FileSystem, KeyValueStore, DocumentDB]);
 
-export default FairOS;
+export { FairOS };
