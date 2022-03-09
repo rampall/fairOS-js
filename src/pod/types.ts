@@ -1,101 +1,85 @@
-export type PodReceiveInfoParams = {
-  reference: string;
-};
+import { BaseResponse } from "../types";
 
-export type PodReceiveInfoResponse = {
+export interface PodReceiveInfoParams {
+  reference: string;
+}
+
+export interface PodReceiveInfoResponse {
   pod_name: string;
   pod_address: string;
   user_name: string;
   user_address: string;
   shared_time: string;
-};
+}
 
-export type PodReceiveParams = {
+export interface PodReceiveParams {
   reference: string;
-};
+}
 
-export type PodReceiveResponse = {
-  message: string;
-  code: number;
-};
+export interface PodReceiveResponse extends BaseResponse {}
 
-export type PodNewBody = {
+export interface PodNewBody {
   pod_name: string;
   password: string;
-};
+}
 
-export type PodNewResponse = {
-  message: string;
-  code: number;
-};
+export interface PodNewResponse extends BaseResponse {}
 
-export type PodOpenBody = {
+export interface PodOpenBody {
   pod_name: string;
   password: string;
-};
+}
 
-export type PodOpenResponse = {
-  message: string;
-  code: number;
-};
+export interface PodOpenResponse extends BaseResponse {}
 
-export type PodCloseBody = {
+export interface PodCloseBody {
   pod_name: string;
-};
+}
 
-export type PodCloseResponse = {
-  message: string;
-  code: number;
-};
+export interface PodCloseResponse extends BaseResponse {}
 
-export type PodSyncBody = {
+export interface PodSyncBody {
   pod_name: string;
-};
+}
 
-export type PodSyncResponse = {
-  message: string;
-  code: number;
-};
+export interface PodSyncResponse extends BaseResponse {}
 
-export type PodSharebody = {
+export interface PodSharebody {
   pod_name: string;
   password: string;
-};
+}
 
-export type PodShareResponse = {
+export interface PodShareResponse {
   pod_sharing_reference: string;
-};
+}
 
-export type PodDeleteBody = {
+export interface PodDeleteBody {
   pod_name: string;
   password: string;
-};
+}
 
-export type PodDeleteResponse = {
-  message: string;
-  code: number;
-};
+export interface PodDeleteResponse extends BaseResponse {}
 
-export type PodListResponse = {
+export interface PodListResponse {
   pod_name: string[];
   shared_pod_name: string[];
-};
+}
 
 //TODO: documentation says it is body
-export type PodStatParams = {
+export interface PodStatParams {
   pod_name: string;
-};
+}
 
-export type PodStatResponse = {
+export interface PodStatResponse {
   pod_name: string;
   address: string;
-};
+}
 
-export type PodPresentParams = {
+export interface PodPresentParams {
   pod_name: string;
-};
+}
 
-export type PodPresentResponse = {
+export interface PodPresentResponse {
   present: boolean;
   error: string;
-};
+}

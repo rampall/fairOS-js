@@ -1,8 +1,10 @@
-export type UserSignUpBody = {
+import { BaseResponse } from "../types";
+
+export interface UserSignUpBody {
   user_name: string;
   password: string;
   mnemonic?: string; //TODO: maybe mnemonic type.
-};
+}
 
 export type UserSignUpResponse<T> = T extends string
   ? {
@@ -10,15 +12,12 @@ export type UserSignUpResponse<T> = T extends string
     }
   : null;
 
-export type UserLoginBody = {
+export interface UserLoginBody {
   user_name: string;
   password: string;
-};
+}
 
-export type UserLoginResponse = {
-  message: string;
-  code: number;
-};
+export interface UserLoginResponse extends BaseResponse {}
 
 //TODO: maybe better type
 export type UserImportBody = {
@@ -29,48 +28,42 @@ export type UserImportBody = {
   | { mnemonic: string; address?: never }
 );
 
-export type UserImportResponse = {
+export interface UserImportResponse {
   address: string;
-};
+}
 
-export type UserPresentParams = {
+export interface UserPresentParams {
   user_name: string;
-};
+}
 
-export type UserPresentResponse = {
+export interface UserPresentResponse {
   present: boolean;
-};
+}
 
-export type UserLoggedInParams = {
+export interface UserLoggedInParams {
   user_name: string;
-};
+}
 
-export type UserLoggedInResponse = {
+export interface UserLoggedInResponse {
   loggedin: boolean;
-};
+}
 
-export type UserLogoutResponse = {
-  message: string;
-  code: number;
-};
+export interface UserLogoutResponse extends BaseResponse {}
 
-export type UserExportResponse = {
+export interface UserExportResponse {
   user_name: string;
   address: string;
-};
+}
 
-export type UserDeleteBody = {
+export interface UserDeleteBody {
   password: string;
-};
+}
 
-export type UserDeleteResponse = {
-  message: string;
-  code: number;
-};
+export interface UserDeleteResponse extends BaseResponse {}
 
 //TODO: reference or address
-export type UserStatReponse = {
+export interface UserStatReponse {
   user_name: string;
   reference?: string;
   address?: string;
-};
+}
