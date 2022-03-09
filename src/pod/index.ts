@@ -1,32 +1,32 @@
 import { Base } from "../base";
 import {
-  PodCloseParams,
+  PodClose,
   PodCloseResponse,
-  PodDeleteParams,
+  PodDelete,
   PodDeleteResponse,
   PodListResponse,
-  PodNewParams,
+  PodNew,
   PodNewResponse,
-  PodOpenParams,
+  PodOpen,
   PodOpenResponse,
-  PodPresentParams,
+  PodPresent,
   PodPresentResponse,
-  PodReceiveInfoParams,
+  PodReceiveInfo,
   PodReceiveInfoResponse,
-  PodReceiveParams,
+  PodReceive,
   PodReceiveResponse,
-  PodShareParams,
+  PodShare,
   PodShareResponse,
-  PodStatParams,
+  PodStat,
   PodStatResponse,
-  PodSyncParams,
+  PodSync,
   PodSyncResponse,
 } from "./types";
 
 const resourceName = "pod";
 
 export class Pod extends Base {
-  podReceiveInfo({ reference }: PodReceiveInfoParams) {
+  podReceiveInfo({ reference }: PodReceiveInfo) {
     return this.getRequest<PodReceiveInfoResponse>(
       `${resourceName}/receiveinfo`,
       {
@@ -37,7 +37,7 @@ export class Pod extends Base {
     );
   }
 
-  podReceive({ reference }: PodReceiveParams) {
+  podReceive({ reference }: PodReceive) {
     return this.getRequest<PodReceiveResponse>(`${resourceName}/receive`, {
       params: {
         reference,
@@ -45,40 +45,40 @@ export class Pod extends Base {
     });
   }
 
-  podNew({ pod_name, password }: PodNewParams) {
+  podNew({ pod_name, password }: PodNew) {
     return this.postRequest<PodNewResponse>(`${resourceName}/new`, {
       pod_name,
       password,
     });
   }
 
-  podOpen({ pod_name, password }: PodOpenParams) {
+  podOpen({ pod_name, password }: PodOpen) {
     return this.postRequest<PodOpenResponse>(`${resourceName}/open`, {
       pod_name,
       password,
     });
   }
 
-  podClose({ pod_name }: PodCloseParams) {
+  podClose({ pod_name }: PodClose) {
     return this.postRequest<PodCloseResponse>(`${resourceName}/close`, {
       pod_name,
     });
   }
 
-  podSync({ pod_name }: PodSyncParams) {
+  podSync({ pod_name }: PodSync) {
     return this.postRequest<PodSyncResponse>(`${resourceName}/sync`, {
       pod_name,
     });
   }
 
-  podShare({ pod_name, password }: PodShareParams) {
+  podShare({ pod_name, password }: PodShare) {
     return this.postRequest<PodShareResponse>(`${resourceName}/share`, {
       pod_name,
       password,
     });
   }
 
-  podDelete({ pod_name, password }: PodDeleteParams) {
+  podDelete({ pod_name, password }: PodDelete) {
     return this.postRequest<PodDeleteResponse>(`${resourceName}/delete`, {
       pod_name,
       password,
@@ -89,7 +89,7 @@ export class Pod extends Base {
     return this.getRequest<PodListResponse>(`${resourceName}/ls`);
   }
 
-  podStat({ pod_name }: PodStatParams) {
+  podStat({ pod_name }: PodStat) {
     return this.getRequest<PodStatResponse>(`${resourceName}/stat`, {
       data: {
         pod_name,
@@ -97,7 +97,7 @@ export class Pod extends Base {
     });
   }
 
-  podPresent({ pod_name }: PodPresentParams) {
+  podPresent({ pod_name }: PodPresent) {
     return this.getRequest<PodPresentResponse>(`${resourceName}/present`, {
       data: {
         pod_name,

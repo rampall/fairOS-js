@@ -2,7 +2,7 @@ import { BaseResponse } from "../types";
 
 export type DocIndexType = "string" | "number" | "map" | "list";
 
-export interface DocCreateDBParams {
+export interface DocCreateDB {
   pod_name: string;
   table_name: string;
   si: string;
@@ -11,7 +11,7 @@ export interface DocCreateDBParams {
 
 export interface DocCreateDBResponse extends BaseResponse {}
 
-export interface DocListDBsParams {
+export interface DocListDBs {
   pod_name: string;
 }
 
@@ -25,14 +25,14 @@ export interface DocListDBsResponse {
   };
 }
 
-export interface DocOpenDBParams {
+export interface DocOpenDB {
   pod_name: string;
   table_name: string;
 }
 
 export interface DocOpenDBResponse extends BaseResponse {}
 
-export interface DocCountParams {
+export interface DocCount {
   pod_name: string;
   table_name: string;
   expr?: string;
@@ -40,14 +40,14 @@ export interface DocCountParams {
 
 export interface DocCountResponse extends BaseResponse {}
 
-export interface DocDeleteDBParams {
+export interface DocDeleteDB {
   pod_name: string;
   table_name: string;
 }
 
 export interface DocDeleteDBResponse extends BaseResponse {}
 
-export interface DocFindParams {
+export interface DocFind {
   pod_name: string;
   table_name: string;
   expr: string;
@@ -63,14 +63,14 @@ export interface DocFindResponse {
   };
 }
 
-export interface DocLoadJsonParams {
+export interface DocLoadJson {
   pod_name: string;
   table_name: string;
 }
 
 export interface DocLoadJsonResponse extends BaseResponse {}
 
-export interface DocIndexJsonParams {
+export interface DocIndexJson {
   pod_name: string;
   table_name: string;
   file: string;
@@ -78,7 +78,7 @@ export interface DocIndexJsonParams {
 
 export interface DocIndexJsonResponse extends BaseResponse {}
 
-export interface DocPutParams {
+export interface DocPut {
   pod_name: string;
   table_name: string;
   doc: string;
@@ -86,7 +86,7 @@ export interface DocPutParams {
 
 export interface DocPutResponse extends BaseResponse {}
 
-export interface DocGetParams {
+export interface DocGet {
   pod_name: string;
   table_name: string;
   id: string;
@@ -94,7 +94,7 @@ export interface DocGetParams {
 
 export interface DocGetResponse extends BaseResponse {}
 
-export interface DocGetParams {
+export interface DocGet {
   pod_name: string;
   table_name: string;
   id: string;
@@ -102,7 +102,7 @@ export interface DocGetParams {
 
 export interface DocGetResponse extends BaseResponse {}
 
-export interface DocDeleteParams {
+export interface DocDelete {
   pod_name: string;
   table_name: string;
   id: string;

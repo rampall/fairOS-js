@@ -2,21 +2,21 @@ import { BaseResponse } from "../types";
 
 export type Compression = "gzip" | "snappy";
 
-export interface FSMakeDirParams {
+export interface FSMakeDir {
   pod_name?: string;
   dir_path: string;
 }
 
 export interface FSMakeDirResponse extends BaseResponse {}
 
-export interface FSRemoveDirParams {
+export interface FSRemoveDir {
   pod_name: string;
   dir_path: string;
 }
 
 export interface FSRemoveDirResponse extends BaseResponse {}
 
-export interface FSListDirParams {
+export interface FSListDir {
   pod_name: string;
   dir_path: string;
 }
@@ -27,7 +27,7 @@ export interface FSListResponse {
   files: {};
 }
 
-export interface FSStatDirParams {
+export interface FSStatDir {
   pod_name: string;
   dir_path: string;
 }
@@ -43,7 +43,7 @@ export interface FSStatDirResponse {
   no_of_files: number;
 }
 
-export interface FSDirPresentParams {
+export interface FSDirPresent {
   pod_name: string;
   dir_path: string;
 }
@@ -53,7 +53,7 @@ export interface FSDirStatResponse {
   error: string;
 }
 
-export interface FSUploadFileParams {
+export interface FSUploadFile {
   pod_name: string;
   pod_dir: string;
   block_size: string;
@@ -66,14 +66,14 @@ export interface FSUploadFileResponse {
   error: string;
 }
 
-export interface FSDownloadFileParams {
+export interface FSDownloadFile {
   pod_name: string;
   file_path: string;
 }
 
 export interface FSDownloadFileResponse extends BaseResponse {}
 
-export interface FSShareFileParams {
+export interface FSShareFile {
   pod_name: string;
   pod_path_file: string;
   dest_user: string;
@@ -83,7 +83,7 @@ export interface FSShareFileResponse {
   file_sharing_reference: string;
 }
 
-export interface FSReceiveFileParams {
+export interface FSReceiveFile {
   pod_name: string;
   sharing_ref: string;
   dir_path: string;
@@ -93,7 +93,7 @@ export interface FSReceiveFileResponse {
   file_name: string;
 }
 
-export interface FSReceiveFileInfoParams {
+export interface FSReceiveFileInfo {
   pod_name: string;
   sharing_ref: string;
 }
@@ -113,7 +113,7 @@ export interface FSReceiveFileInfoResponse {
 }
 
 //TODO: delete a file not delete info
-export interface FSDeleteFileParams {
+export interface FSDeleteFile {
   pod_name: string;
   file_path: string;
 }
@@ -121,7 +121,7 @@ export interface FSDeleteFileParams {
 export interface FSDeleteFileResponse extends BaseResponse {}
 
 //TODO: good name?
-export interface FSStatInfoParams {
+export interface FSStatInfo {
   pod_name: string;
   file_path: string;
 }

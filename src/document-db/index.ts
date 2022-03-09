@@ -1,33 +1,33 @@
 import { Base } from "../base";
 import {
-  DocCountParams,
+  DocCount,
   DocCountResponse,
-  DocCreateDBParams,
+  DocCreateDB,
   DocCreateDBResponse,
-  DocDeleteDBParams,
+  DocDeleteDB,
   DocDeleteDBResponse,
-  DocDeleteParams,
+  DocDelete,
   DocDeleteResponse,
-  DocFindParams,
+  DocFind,
   DocFindResponse,
-  DocGetParams,
+  DocGet,
   DocGetResponse,
-  DocIndexJsonParams,
+  DocIndexJson,
   DocIndexJsonResponse,
-  DocListDBsParams,
+  DocListDBs,
   DocListDBsResponse,
-  DocLoadJsonParams,
+  DocLoadJson,
   DocLoadJsonResponse,
-  DocOpenDBParams,
+  DocOpenDB,
   DocOpenDBResponse,
-  DocPutParams,
+  DocPut,
   DocPutResponse,
 } from "./types";
 
 const resourceName = "doc";
 
 export class DocumentDB extends Base {
-  docCreateDB({ pod_name, table_name, si, mutable }: DocCreateDBParams) {
+  docCreateDB({ pod_name, table_name, si, mutable }: DocCreateDB) {
     return this.postRequest<DocCreateDBResponse>(`${resourceName}/new`, {
       pod_name,
       table_name,
@@ -36,7 +36,7 @@ export class DocumentDB extends Base {
     });
   }
 
-  docListDBs({ pod_name }: DocListDBsParams) {
+  docListDBs({ pod_name }: DocListDBs) {
     return this.getRequest<DocListDBsResponse>(`${resourceName}/ls`, {
       params: {
         pod_name,
@@ -44,14 +44,14 @@ export class DocumentDB extends Base {
     });
   }
 
-  docOpenDB({ pod_name, table_name }: DocOpenDBParams) {
+  docOpenDB({ pod_name, table_name }: DocOpenDB) {
     return this.postRequest<DocOpenDBResponse>(`${resourceName}/open`, {
       pod_name,
       table_name,
     });
   }
 
-  docCount({ pod_name, table_name, expr }: DocCountParams) {
+  docCount({ pod_name, table_name, expr }: DocCount) {
     return this.postRequest<DocCountResponse>(`${resourceName}/count`, {
       pod_name,
       table_name,
@@ -59,7 +59,7 @@ export class DocumentDB extends Base {
     });
   }
 
-  docDeleteDB({ pod_name, table_name }: DocDeleteDBParams) {
+  docDeleteDB({ pod_name, table_name }: DocDeleteDB) {
     return this.deleteRequest<DocDeleteDBResponse>(`${resourceName}/delete`, {
       data: {
         pod_name,
@@ -68,7 +68,7 @@ export class DocumentDB extends Base {
     });
   }
 
-  docFind({ pod_name, table_name, expr, limit }: DocFindParams) {
+  docFind({ pod_name, table_name, expr, limit }: DocFind) {
     return this.deleteRequest<DocFindResponse>(`${resourceName}/find`, {
       data: {
         pod_name,
@@ -79,14 +79,14 @@ export class DocumentDB extends Base {
     });
   }
 
-  docLoadJson({ pod_name, table_name }: DocLoadJsonParams) {
+  docLoadJson({ pod_name, table_name }: DocLoadJson) {
     return this.postRequest<DocLoadJsonResponse>(`${resourceName}/loadjson`, {
       pod_name,
       table_name,
     });
   }
 
-  docIndexJson({ pod_name, table_name, file }: DocIndexJsonParams) {
+  docIndexJson({ pod_name, table_name, file }: DocIndexJson) {
     return this.postRequest<DocIndexJsonResponse>(`${resourceName}/indexjson`, {
       pod_name,
       table_name,
@@ -94,7 +94,7 @@ export class DocumentDB extends Base {
     });
   }
 
-  docPut({ pod_name, table_name, doc }: DocPutParams) {
+  docPut({ pod_name, table_name, doc }: DocPut) {
     return this.postRequest<DocPutResponse>(`${resourceName}/entry/put`, {
       pod_name,
       table_name,
@@ -102,7 +102,7 @@ export class DocumentDB extends Base {
     });
   }
 
-  docGet({ pod_name, table_name, id }: DocGetParams) {
+  docGet({ pod_name, table_name, id }: DocGet) {
     return this.getRequest<DocGetResponse>(`${resourceName}/entry/get`, {
       params: {
         pod_name,
@@ -112,7 +112,7 @@ export class DocumentDB extends Base {
     });
   }
 
-  docDelete({ pod_name, table_name, id }: DocDeleteParams) {
+  docDelete({ pod_name, table_name, id }: DocDelete) {
     return this.deleteRequest<DocDeleteResponse>(`${resourceName}/entry/del`, {
       data: {
         pod_name,

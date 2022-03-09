@@ -3,7 +3,7 @@ import { BaseResponse } from "../types";
 type KVIndexType = "string" | "number";
 type KVValueFormat = "string" | "byte-string";
 
-export interface KVNewTableParams {
+export interface KVNewTable {
   pod_name: string;
   table_name: string;
   indexType?: KVIndexType;
@@ -11,7 +11,7 @@ export interface KVNewTableParams {
 
 export interface KVNewTableResponse extends BaseResponse {}
 
-export interface KVListTablesParams {
+export interface KVListTables {
   pod_name: string;
 }
 
@@ -25,14 +25,14 @@ export interface KVListTableItem {
 
 export interface KVListTablesResponse extends Array<KVListTableItem> {}
 
-export interface KVOpenTableParams {
+export interface KVOpenTable {
   pod_name: string;
   table_name: string;
 }
 
 export interface KVOpenTableResponse extends BaseResponse {}
 
-export interface KVCountTablePairsParams {
+export interface KVCountTablePairs {
   pod_name: string;
   table_name: string;
 }
@@ -42,14 +42,14 @@ export interface KVCountTablePairsResponse {
   table_name: string;
 }
 
-export interface KVDeleteTableParams {
+export interface KVDeleteTable {
   pod_name: string;
   table_name: string;
 }
 
 export interface KVDeleteTableResponse extends BaseResponse {}
 
-export interface KVPutPairParams {
+export interface KVPutPair {
   pod_name: string;
   table_name: string;
   key: string;
@@ -59,7 +59,7 @@ export interface KVPutPairParams {
 export interface KVPutPairResponse extends BaseResponse {}
 
 //TODO: is it good?
-export interface KVGetValueParams {
+export interface KVGetValue {
   pod_name: string;
   table_name: string;
   key: string;
@@ -75,7 +75,7 @@ export interface KVGetValueResponse {
   }[];
 }
 
-export interface KVDeleteValueParams {
+export interface KVDeleteValue {
   pod_name: string;
   table_name: string;
   key: string;
@@ -83,7 +83,7 @@ export interface KVDeleteValueParams {
 
 export interface KVDeleteValueResponse extends BaseResponse {}
 
-export interface KVSeekKeyParams {
+export interface KVSeekKey {
   pod_name: string;
   table_name: string;
   start: string;
@@ -93,7 +93,7 @@ export interface KVSeekKeyParams {
 
 export interface KVSeekKeyResponse extends BaseResponse {}
 
-export interface KVGetSeekNextParams {
+export interface KVGetSeekNext {
   pod_name: string;
   table_name: string;
 }
@@ -107,7 +107,7 @@ export interface KVGetSeekNextResponse {
   }[];
 }
 
-export interface KVLoadCSVParams {
+export interface KVLoadCSV {
   pod_name: string;
   table_name: string;
   memory: string;
@@ -115,7 +115,7 @@ export interface KVLoadCSVParams {
 
 export interface KVLoadCSVResponse extends BaseResponse {}
 
-export interface KVKeyPresentParams {
+export interface KVKeyPresent {
   pod_name: string;
   table_name: string;
   key: string;

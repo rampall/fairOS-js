@@ -1,18 +1,18 @@
 import { BaseResponse } from "../types";
 
-export interface UserSignUpParams {
+export interface UserSignUp {
   user_name: string;
   password: string;
   mnemonic?: string; //TODO: maybe mnemonic type.
 }
 
 export type UserSignUpResponse<T> = T extends string
-  ? {
+  ? null
+  : {
       address: string;
-    }
-  : null;
+    };
 
-export interface UserLoginParams {
+export interface UserLogin {
   user_name: string;
   password: string;
 }
@@ -20,7 +20,7 @@ export interface UserLoginParams {
 export interface UserLoginResponse extends BaseResponse {}
 
 //TODO: maybe better type
-export type UserImportParams = {
+export type UserImport = {
   user_name: string;
   password: string;
 } & (
@@ -32,7 +32,7 @@ export interface UserImportResponse {
   address: string;
 }
 
-export interface UserPresentParams {
+export interface UserPresent {
   user_name: string;
 }
 
@@ -40,7 +40,7 @@ export interface UserPresentResponse {
   present: boolean;
 }
 
-export interface UserLoggedInParams {
+export interface UserLoggedIn {
   user_name: string;
 }
 
@@ -55,7 +55,7 @@ export interface UserExportResponse {
   address: string;
 }
 
-export interface UserDeleteParams {
+export interface UserDelete {
   password: string;
 }
 

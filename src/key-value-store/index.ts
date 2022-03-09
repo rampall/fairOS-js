@@ -1,35 +1,35 @@
 import { Base } from "../base";
 import {
-  KVNewTableParams,
+  KVNewTable,
   KVNewTableResponse,
-  KVListTablesParams,
+  KVListTables,
   KVListTablesResponse,
-  KVOpenTableParams,
+  KVOpenTable,
   KVOpenTableResponse,
-  KVCountTablePairsParams,
+  KVCountTablePairs,
   KVCountTablePairsResponse,
-  KVDeleteTableParams,
+  KVDeleteTable,
   KVDeleteTableResponse,
-  KVPutPairParams,
+  KVPutPair,
   KVPutPairResponse,
-  KVGetValueParams,
+  KVGetValue,
   KVGetValueResponse,
-  KVDeleteValueParams,
+  KVDeleteValue,
   KVDeleteValueResponse,
-  KVSeekKeyParams,
+  KVSeekKey,
   KVSeekKeyResponse,
-  KVGetSeekNextParams,
+  KVGetSeekNext,
   KVGetSeekNextResponse,
-  KVLoadCSVParams,
+  KVLoadCSV,
   KVLoadCSVResponse,
-  KVKeyPresentParams,
+  KVKeyPresent,
   KVKeyPresentResponse,
 } from "./types";
 
 const resourceName = "kv";
 
 export class KeyValueStore extends Base {
-  kvNewTable({ pod_name, table_name, indexType }: KVNewTableParams) {
+  kvNewTable({ pod_name, table_name, indexType }: KVNewTable) {
     return this.postRequest<KVNewTableResponse>(`${resourceName}/new`, {
       pod_name,
       table_name,
@@ -37,7 +37,7 @@ export class KeyValueStore extends Base {
     });
   }
 
-  kvListTables({ pod_name }: KVListTablesParams) {
+  kvListTables({ pod_name }: KVListTables) {
     return this.getRequest<KVListTablesResponse>(`${resourceName}/ls`, {
       params: {
         pod_name,
@@ -45,14 +45,14 @@ export class KeyValueStore extends Base {
     });
   }
 
-  kvOpenTable({ pod_name, table_name }: KVOpenTableParams) {
+  kvOpenTable({ pod_name, table_name }: KVOpenTable) {
     return this.postRequest<KVOpenTableResponse>(`${resourceName}/open`, {
       pod_name,
       table_name,
     });
   }
 
-  kvCountTablePairs({ pod_name, table_name }: KVCountTablePairsParams) {
+  kvCountTablePairs({ pod_name, table_name }: KVCountTablePairs) {
     return this.postRequest<KVCountTablePairsResponse>(
       `${resourceName}/count`,
       {
@@ -62,7 +62,7 @@ export class KeyValueStore extends Base {
     );
   }
 
-  kvDeleteTable({ pod_name, table_name }: KVDeleteTableParams) {
+  kvDeleteTable({ pod_name, table_name }: KVDeleteTable) {
     return this.deleteRequest<KVDeleteTableResponse>(`${resourceName}/delete`, {
       data: {
         pod_name,
@@ -71,7 +71,7 @@ export class KeyValueStore extends Base {
     });
   }
 
-  kvPutPair({ pod_name, table_name, key, value }: KVPutPairParams) {
+  kvPutPair({ pod_name, table_name, key, value }: KVPutPair) {
     return this.postRequest<KVPutPairResponse>(`${resourceName}/entry/put`, {
       pod_name,
       table_name,
@@ -81,12 +81,7 @@ export class KeyValueStore extends Base {
   }
 
   //TODO: do we need both endpoints?
-  kvGetValue({
-    pod_name,
-    table_name,
-    key,
-    format = "string",
-  }: KVGetValueParams) {
+  kvGetValue({ pod_name, table_name, key, format = "string" }: KVGetValue) {
     return this.getRequest<KVGetValueResponse>(
       `${resourceName}/entry/get-data`,
       {
@@ -100,7 +95,7 @@ export class KeyValueStore extends Base {
     );
   }
 
-  kvDeleteValue({ pod_name, table_name, key }: KVDeleteValueParams) {
+  kvDeleteValue({ pod_name, table_name, key }: KVDeleteValue) {
     return this.deleteRequest<KVDeleteValueResponse>(
       `${resourceName}/entry/del`,
       {
@@ -113,7 +108,7 @@ export class KeyValueStore extends Base {
     );
   }
 
-  kvSeekKey({ pod_name, table_name, start, end, limit }: KVSeekKeyParams) {
+  kvSeekKey({ pod_name, table_name, start, end, limit }: KVSeekKey) {
     return this.postRequest<KVSeekKeyResponse>(`${resourceName}/seek`, {
       pod_name,
       table_name,
@@ -123,7 +118,7 @@ export class KeyValueStore extends Base {
     });
   }
 
-  kvGetSeekNext({ pod_name, table_name }: KVGetSeekNextParams) {
+  kvGetSeekNext({ pod_name, table_name }: KVGetSeekNext) {
     return this.getRequest<KVGetSeekNextResponse>(`${resourceName}/seek/next`, {
       params: {
         pod_name,
@@ -132,7 +127,7 @@ export class KeyValueStore extends Base {
     });
   }
 
-  kvLoadCSV({ pod_name, table_name, memory }: KVLoadCSVParams) {
+  kvLoadCSV({ pod_name, table_name, memory }: KVLoadCSV) {
     return this.postRequest<KVLoadCSVResponse>(`${resourceName}/loadcsv`, {
       pod_name,
       table_name,
@@ -140,7 +135,7 @@ export class KeyValueStore extends Base {
     });
   }
 
-  kvKeyPresent({ pod_name, table_name, key }: KVKeyPresentParams) {
+  kvKeyPresent({ pod_name, table_name, key }: KVKeyPresent) {
     return this.getRequest<KVKeyPresentResponse>(`${resourceName}/present`, {
       params: {
         pod_name,

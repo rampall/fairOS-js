@@ -1,18 +1,18 @@
 import { Base } from "../base";
 import {
-  UserSignUpParams,
+  UserSignUp,
   UserSignUpResponse,
-  UserLoginParams,
+  UserLogin,
   UserLoginResponse,
-  UserImportParams,
+  UserImport,
   UserImportResponse,
-  UserPresentParams,
+  UserPresent,
   UserPresentResponse,
-  UserLoggedInParams,
+  UserLoggedIn,
   UserLoggedInResponse,
   UserLogoutResponse,
   UserExportResponse,
-  UserDeleteParams,
+  UserDelete,
   UserStatReponse,
   UserDeleteResponse,
 } from "./types";
@@ -21,7 +21,7 @@ const resourceName = "user";
 
 export class User extends Base {
   //TODO: maybe better implementation
-  userSignup({ user_name, password, mnemonic }: UserSignUpParams) {
+  userSignup({ user_name, password, mnemonic }: UserSignUp) {
     return this.postRequest<UserSignUpResponse<typeof mnemonic>>(
       `${resourceName}/signup`,
       {
@@ -32,14 +32,14 @@ export class User extends Base {
     );
   }
 
-  userLogin({ user_name, password }: UserLoginParams) {
+  userLogin({ user_name, password }: UserLogin) {
     return this.postRequest<UserLoginResponse>(`${resourceName}/login`, {
       user_name,
       password,
     });
   }
 
-  userImport({ user_name, password, address, mnemonic }: UserImportParams) {
+  userImport({ user_name, password, address, mnemonic }: UserImport) {
     return this.postRequest<UserImportResponse>(`${resourceName}/import`, {
       user_name,
       password,
@@ -48,7 +48,7 @@ export class User extends Base {
     });
   }
 
-  userPresent({ user_name }: UserPresentParams) {
+  userPresent({ user_name }: UserPresent) {
     return this.getRequest<UserPresentResponse>(`${resourceName}/present`, {
       params: {
         user_name,
@@ -56,7 +56,7 @@ export class User extends Base {
     });
   }
 
-  userLoggedIn({ user_name }: UserLoggedInParams) {
+  userLoggedIn({ user_name }: UserLoggedIn) {
     return this.getRequest<UserLoggedInResponse>(`${resourceName}/isloggedin`, {
       params: {
         user_name,
@@ -72,7 +72,7 @@ export class User extends Base {
     return this.postRequest<UserExportResponse>(`${resourceName}/export`);
   }
 
-  userDelete({ password }: UserDeleteParams) {
+  userDelete({ password }: UserDelete) {
     return this.deleteRequest<UserDeleteResponse>(`${resourceName}/delete`, {
       data: {
         password,

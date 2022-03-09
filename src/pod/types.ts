@@ -1,6 +1,6 @@
 import { BaseResponse } from "../types";
 
-export interface PodReceiveInfoParams {
+export interface PodReceiveInfo {
   reference: string;
 }
 
@@ -12,39 +12,39 @@ export interface PodReceiveInfoResponse {
   shared_time: string;
 }
 
-export interface PodReceiveParams {
+export interface PodReceive {
   reference: string;
 }
 
 export interface PodReceiveResponse extends BaseResponse {}
 
-export interface PodNewParams {
+export interface PodNew {
   pod_name: string;
   password: string;
 }
 
 export interface PodNewResponse extends BaseResponse {}
 
-export interface PodOpenParams {
+export interface PodOpen {
   pod_name: string;
   password: string;
 }
 
 export interface PodOpenResponse extends BaseResponse {}
 
-export interface PodCloseParams {
+export interface PodClose {
   pod_name: string;
 }
 
 export interface PodCloseResponse extends BaseResponse {}
 
-export interface PodSyncParams {
+export interface PodSync {
   pod_name: string;
 }
 
 export interface PodSyncResponse extends BaseResponse {}
 
-export interface PodShareParams {
+export interface PodShare {
   pod_name: string;
   password: string;
 }
@@ -53,7 +53,7 @@ export interface PodShareResponse {
   pod_sharing_reference: string;
 }
 
-export interface PodDeleteParams {
+export interface PodDelete {
   pod_name: string;
   password: string;
 }
@@ -66,7 +66,7 @@ export interface PodListResponse {
 }
 
 //TODO: documentation says it is body
-export interface PodStatParams {
+export interface PodStat {
   pod_name: string;
 }
 
@@ -75,7 +75,7 @@ export interface PodStatResponse {
   address: string;
 }
 
-export interface PodPresentParams {
+export interface PodPresent {
   pod_name: string;
 }
 
