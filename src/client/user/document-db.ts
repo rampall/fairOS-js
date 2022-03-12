@@ -24,17 +24,30 @@ import {
   DocPut,
   DocPutResponse,
 } from "../../types/document-db";
+import { DocumentTable } from "../document-db/table";
 
 const resourceName = "doc";
 
 export class DocumentDB extends Request {
-  docCreateDB({ pod_name, table_name, si, mutable }: DocCreateDB) {
-    return this.postRequest<DocCreateDBResponse>(`${resourceName}/new`, {
-      pod_name,
-      table_name,
-      si,
-      mutable,
+  async docCreateDB({ pod_name, table_name, si, mutable }: DocCreateDB) {
+    const response = await this.postRequest<DocCreateDBResponse>(
+      `${resourceName}/new`,
+      {
+        pod_name,
+        table_name,
+        si,
+        mutable,
+      }
+    );
+
+    const docTable = new DocumentTable({
+      providerUrl: this.providerUrl,
+      authCookie: response.cookies,
+      podName: pod_name,
+      tableName: table_name,
     });
+
+    return docTable;
   }
 
   docListDBs({ pod_name }: DocListDBs) {
@@ -45,11 +58,23 @@ export class DocumentDB extends Request {
     });
   }
 
-  docOpenDB({ pod_name, table_name }: DocOpenDB) {
-    return this.postRequest<DocOpenDBResponse>(`${resourceName}/open`, {
-      pod_name,
-      table_name,
+  async docOpenDB({ pod_name, table_name }: DocOpenDB) {
+    const response = await this.postRequest<DocOpenDBResponse>(
+      `${resourceName}/open`,
+      {
+        pod_name,
+        table_name,
+      }
+    );
+
+    const docTable = new DocumentTable({
+      providerUrl: this.providerUrl,
+      authCookie: response.cookies,
+      podName: pod_name,
+      tableName: table_name,
     });
+
+    return docTable;
   }
 
   docCount({ pod_name, table_name, expr }: DocCount) {
