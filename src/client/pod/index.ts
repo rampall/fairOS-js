@@ -37,6 +37,7 @@ import {
   FSUploadFile,
   FSUploadFileResponse,
 } from "../../types/fs";
+import { File } from "../fs/file";
 
 type Config = {
   providerUrl: string;
@@ -148,8 +149,12 @@ export class Pod extends Request {
     });
   }
 
-  uploadFile({ dfs_compression, pod_dir, block_size }: omit<FSUploadFile>) {
-    return this.postRequest<FSUploadFileResponse>(
+  async uploadFile({
+    dfs_compression,
+    pod_dir,
+    block_size,
+  }: omit<FSUploadFile>) {
+    const response = await this.postRequest<FSUploadFileResponse>(
       "file/upload",
       {
         pod_name: this.name,
@@ -162,6 +167,17 @@ export class Pod extends Request {
         },
       }
     );
+
+    const file = new File({
+      providerUrl: this.providerUrl,
+      authCookie: response.cookies,
+      podName: this.name,
+      podDir: pod_dir,
+      fileName: response.file_name,
+      reference: response.reference,
+    });
+
+    return file;
   }
 
   downloadFileGet({ file_path }: omit<FSDownloadFile>) {
