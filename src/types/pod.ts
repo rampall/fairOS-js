@@ -1,4 +1,4 @@
-import { BaseResponse } from "../types";
+import { BaseResponse } from "./base";
 
 export interface PodReceiveInfo {
   reference: string;

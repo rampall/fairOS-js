@@ -1,4 +1,4 @@
-import { BaseResponse } from "../types";
+import { BaseResponse } from "./base";
 
 export interface UserSignUp {
   user_name: string;
@@ -6,11 +6,10 @@ export interface UserSignUp {
   mnemonic?: string; //TODO: maybe mnemonic type.
 }
 
-export type UserSignUpResponse<T> = T extends string
-  ? null
-  : {
-      address: string;
-    };
+export type UserSignUpResponse = {
+  address: string;
+  mnemonic?: string;
+};
 
 export interface UserLogin {
   user_name: string;

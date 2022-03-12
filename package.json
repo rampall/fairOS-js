@@ -9,7 +9,8 @@
     "build": "run-s _clear _tsc _make-bundle",
     "test": "jest",
     "test:watch": "jest --watch",
-    "doc": "typedoc --out docs src/index.ts"
+    "doc": "typedoc --out docs src/index.ts",
+    "generate": "openapi --input ./swagger.json --output ./generated --client axios"
   },
   "files": [
     "dist/fairos.d.ts",
@@ -35,6 +36,7 @@
     "@types/jest": "^27.4.1",
     "jest": "^27.5.1",
     "npm-run-all": "^4.1.5",
+    "openapi-typescript-codegen": "^0.20.1",
     "rimraf": "^3.0.2",
     "rollup": "^2.69.1",
     "rollup-plugin-dts": "^4.2.0",

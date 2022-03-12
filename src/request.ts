@@ -7,7 +7,7 @@ type Config = {
 
 export abstract class Request {
   private axiosInstance: AxiosInstance;
-  protected providerUrl: string;
+  public readonly providerUrl: string;
 
   constructor({ providerUrl, authCookie = "" }: Config) {
     this.axiosInstance = axios.create({

@@ -1,5 +1,5 @@
 import { Request } from "../request";
-import { User } from "../user/user";
+import { User } from "./user";
 
 import {
   UserSignUp,
@@ -12,31 +12,19 @@ import {
   UserPresentResponse,
   UserLoggedIn,
   UserLoggedInResponse,
-} from "../user/types";
+} from "../types/user";
 
 type Config = {
   providerUrl: string;
 };
 
-type Resources = {
-  user?: string;
-};
-
 export class FairOS extends Request {
-  private resources: Resources;
-
-  constructor(config: Config, resources?: Resources) {
+  constructor(config: Config) {
     super(config);
-
-    this.resources = {
-      user: resources?.user || "user",
-    };
   }
 
   async userSignup({ user_name, password, mnemonic }: UserSignUp) {
-    const response = await this.postRequest<
-      UserSignUpResponse<typeof mnemonic>
-    >(`${this.resources.user}/signup`, {
+    const response = await this.postRequest<UserSignUpResponse>("user/signup", {
       user_name,
       password,
       mnemonic,
@@ -46,19 +34,17 @@ export class FairOS extends Request {
       providerUrl: this.providerUrl,
       authCookie: response.cookies,
       username: user_name,
+      address: response.address,
     });
 
     return user;
   }
 
   async userLogin({ user_name, password }: UserLogin) {
-    const response = await this.postRequest<UserLoginResponse>(
-      `${this.resources.user}/login`,
-      {
-        user_name,
-        password,
-      }
-    );
+    const response = await this.postRequest<UserLoginResponse>("user/login", {
+      user_name,
+      password,
+    });
 
     const user = new User({
       providerUrl: this.providerUrl,
@@ -70,44 +56,36 @@ export class FairOS extends Request {
   }
 
   async userImport({ user_name, password, address, mnemonic }: UserImport) {
-    const response = await this.postRequest<UserImportResponse>(
-      `${this.resources.user}/import`,
-      {
-        user_name,
-        password,
-        address,
-        mnemonic,
-      }
-    );
+    const response = await this.postRequest<UserImportResponse>("user/import", {
+      user_name,
+      password,
+      address,
+      mnemonic,
+    });
 
     const user = new User({
       providerUrl: this.providerUrl,
       authCookie: response.cookies,
       username: user_name,
+      address: response.address,
     });
 
     return user;
   }
 
   userPresent({ user_name }: UserPresent) {
-    return this.getRequest<UserPresentResponse>(
-      `${this.resources.user}/present`,
-      {
-        params: {
-          user_name,
-        },
-      }
-    );
+    return this.getRequest<UserPresentResponse>("user/present", {
+      params: {
+        user_name,
+      },
+    });
   }
 
   userLoggedIn({ user_name }: UserLoggedIn) {
-    return this.getRequest<UserLoggedInResponse>(
-      `${this.resources.user}/isloggedin`,
-      {
-        params: {
-          user_name,
-        },
-      }
-    );
+    return this.getRequest<UserLoggedInResponse>("user/isloggedin", {
+      params: {
+        user_name,
+      },
+    });
   }
 }
