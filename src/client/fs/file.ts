@@ -11,6 +11,7 @@ import {
 
 type Config = {
   providerUrl: string;
+  authCookie?: string;
   podName: string;
   podDir: string;
   fileName: string;

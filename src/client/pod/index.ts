@@ -97,13 +97,14 @@ export class Pod extends Request {
   }
 
   async makeDir({ dir_path }: omit<FSMakeDir>) {
-    await this.postRequest<FSMakeDirResponse>("dir/mkdir", {
+    const response = await this.postRequest<FSMakeDirResponse>("dir/mkdir", {
       pod_name: this.name,
       dir_path,
     });
 
     const dir = new Directory({
       providerUrl: this.providerUrl,
+      authCookie: response.cookies,
       podName: this.name,
       path: dir_path,
     });

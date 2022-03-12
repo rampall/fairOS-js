@@ -21,6 +21,7 @@ import {
 
 type Config = {
   providerUrl: string;
+  authCookie?: string;
   podName: string;
   path: string;
 };
@@ -90,6 +91,7 @@ export class Directory extends Request {
 
     const file = new File({
       providerUrl: this.providerUrl,
+      authCookie: response.cookies,
       podName: this.podName,
       podDir: this.path,
       fileName: response.file_name,

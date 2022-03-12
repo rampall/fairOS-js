@@ -30,13 +30,14 @@ import {
 
 export class FS extends Request {
   async fsMakeDir({ pod_name, dir_path }: FSMakeDir) {
-    await this.postRequest<FSMakeDirResponse>("dir/mkdir", {
+    const response = await this.postRequest<FSMakeDirResponse>("dir/mkdir", {
       pod_name,
       dir_path,
     });
 
     const dir = new Directory({
       providerUrl: this.providerUrl,
+      authCookie: response.cookies,
       podName: pod_name,
       path: dir_path,
     });
@@ -102,6 +103,7 @@ export class FS extends Request {
 
     const file = new File({
       providerUrl: this.providerUrl,
+      authCookie: response.cookies,
       podName: pod_name,
       podDir: pod_dir,
       fileName: response.file_name,
