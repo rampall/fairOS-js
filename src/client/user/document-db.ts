@@ -1,4 +1,5 @@
-import { Base } from "../base";
+import { Request } from "../../request";
+
 import {
   DocCount,
   DocCountResponse,
@@ -22,11 +23,11 @@ import {
   DocOpenDBResponse,
   DocPut,
   DocPutResponse,
-} from "./types";
+} from "../../types/document-db";
 
 const resourceName = "doc";
 
-export class DocumentDB extends Base {
+export class DocumentDB extends Request {
   docCreateDB({ pod_name, table_name, si, mutable }: DocCreateDB) {
     return this.postRequest<DocCreateDBResponse>(`${resourceName}/new`, {
       pod_name,

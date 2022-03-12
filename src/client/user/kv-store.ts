@@ -1,4 +1,4 @@
-import { Base } from "../base";
+import { Request } from "../../request";
 import {
   KVNewTable,
   KVNewTableResponse,
@@ -24,11 +24,11 @@ import {
   KVLoadCSVResponse,
   KVKeyPresent,
   KVKeyPresentResponse,
-} from "./types";
+} from "../../types/kv-store";
 
 const resourceName = "kv";
 
-export class KeyValueStore extends Base {
+export class KeyValueStore extends Request {
   kvNewTable({ pod_name, table_name, indexType }: KVNewTable) {
     return this.postRequest<KVNewTableResponse>(`${resourceName}/new`, {
       pod_name,
