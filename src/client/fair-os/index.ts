@@ -1,5 +1,5 @@
-import { Request } from "../request";
-import { User } from "./user";
+import { Request } from "../../request";
+import { User } from "../user";
 
 import {
   UserSignUp,
@@ -12,7 +12,7 @@ import {
   UserPresentResponse,
   UserLoggedIn,
   UserLoggedInResponse,
-} from "../types/user";
+} from "../../types/user";
 
 type Config = {
   providerUrl: string;

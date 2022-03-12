@@ -3,13 +3,11 @@ import { File } from "./file";
 import { join } from "path";
 
 import {
-  FSDownloadFile,
   FSDownloadFileResponse,
   FSListResponse,
   FSReceiveFile,
   FSReceiveFileResponse,
   FSRemoveDirResponse,
-  FSShareFile,
   FSShareFileResponse,
   FSStatDirResponse,
   FSUploadFileResponse,
@@ -18,13 +16,16 @@ import {
   FSDeleteFile,
   FSDeleteFileResponse,
   FSStatInfoResponse,
-} from "../../types/file-system";
+  FSUploadFile,
+} from "../../types/fs";
 
 type Config = {
   providerUrl: string;
   podName: string;
   path: string;
 };
+
+type omit<T> = Omit<T, "pod_name" | "pod_dir" | "dir_path">;
 
 export class Directory extends Request {
   public podName: string;
@@ -72,7 +73,7 @@ export class Directory extends Request {
     });
   }
 
-  async uploadFile({ dfs_compression, block_size }) {
+  async uploadFile({ dfs_compression, block_size }: omit<FSUploadFile>) {
     const response = await this.postRequest<FSUploadFileResponse>(
       "file/upload",
       {
@@ -129,7 +130,7 @@ export class Directory extends Request {
     });
   }
 
-  receiveFile({ sharing_ref }: FSReceiveFile) {
+  receiveFile({ sharing_ref }: omit<FSReceiveFile>) {
     return this.getRequest<FSReceiveFileResponse>("file/receive", {
       params: {
         pod_name: this.podName,
@@ -139,19 +140,19 @@ export class Directory extends Request {
     });
   }
 
-  receiveFileInfo({ pod_name, sharing_ref }: FSReceiveFileInfo) {
+  receiveFileInfo({ sharing_ref }: omit<FSReceiveFileInfo>) {
     return this.getRequest<FSReceiveFileInfoResponse>("file/receiveinfo", {
       params: {
-        pod_name,
+        pod_name: this.podName,
         sharing_ref,
       },
     });
   }
 
-  deleteFile({ pod_name, file_path }: FSDeleteFile) {
+  deleteFile({ file_path }: omit<FSDeleteFile>) {
     return this.deleteRequest<FSDeleteFileResponse>("file/delete", {
       params: {
-        pod_name,
+        pod_name: this.podName,
         file_path,
       },
     });

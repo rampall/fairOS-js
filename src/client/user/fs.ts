@@ -1,4 +1,7 @@
-import { Base } from "../base";
+import { Request } from "../../request";
+import { Directory } from "../fs/directory";
+import { File } from "../fs/file";
+
 import {
   FSDeleteFile,
   FSDeleteFileResponse,
@@ -23,21 +26,26 @@ import {
   FSStatInfoResponse,
   FSUploadFile,
   FSUploadFileResponse,
-} from "./types";
+} from "../../types/fs";
 
-const dirResourceName = "dir";
-const fileResourceName = "file";
-
-export class FileSystem extends Base {
-  fsMakeDir({ pod_name, dir_path }: FSMakeDir) {
-    return this.postRequest<FSMakeDirResponse>(`${dirResourceName}/mkdir`, {
+export class FS extends Request {
+  async fsMakeDir({ pod_name, dir_path }: FSMakeDir) {
+    await this.postRequest<FSMakeDirResponse>("dir/mkdir", {
       pod_name,
       dir_path,
     });
+
+    const dir = new Directory({
+      providerUrl: this.providerUrl,
+      podName: pod_name,
+      path: dir_path,
+    });
+
+    return dir;
   }
 
   fsRemoveDir({ pod_name, dir_path }: FSRemoveDir) {
-    return this.deleteRequest<FSRemoveDirResponse>(`${dirResourceName}/rmdir`, {
+    return this.deleteRequest<FSRemoveDirResponse>("dir/rmdir", {
       data: {
         pod_name,
         dir_path,
@@ -46,7 +54,7 @@ export class FileSystem extends Base {
   }
 
   fsListDir({ pod_name, dir_path }: FSListDir) {
-    return this.getRequest<FSListResponse>(`${dirResourceName}/ls`, {
+    return this.getRequest<FSListResponse>("dir/ls", {
       params: {
         pod_name,
         dir_path,
@@ -55,7 +63,7 @@ export class FileSystem extends Base {
   }
 
   fsStatDir({ pod_name, dir_path }: FSStatDir) {
-    return this.getRequest<FSStatDirResponse>(`${dirResourceName}/stat`, {
+    return this.getRequest<FSStatDirResponse>("dir/stat", {
       params: {
         pod_name,
         dir_path,
@@ -64,7 +72,7 @@ export class FileSystem extends Base {
   }
 
   fsDirPresent({ pod_name, dir_path }: FSDirPresent) {
-    return this.getRequest<FSStatDirResponse>(`${dirResourceName}/present`, {
+    return this.getRequest<FSStatDirResponse>("dir/present", {
       params: {
         pod_name,
         dir_path,
@@ -72,14 +80,14 @@ export class FileSystem extends Base {
     });
   }
 
-  fsUploadFile({
+  async fsUploadFile({
     dfs_compression,
     pod_name,
     pod_dir,
     block_size,
   }: FSUploadFile) {
-    return this.postRequest<FSUploadFileResponse>(
-      `${fileResourceName}/upload`,
+    const response = await this.postRequest<FSUploadFileResponse>(
+      "file/upload",
       {
         pod_name,
         pod_dir,
@@ -91,32 +99,36 @@ export class FileSystem extends Base {
         },
       }
     );
+
+    const file = new File({
+      providerUrl: this.providerUrl,
+      podName: pod_name,
+      podDir: pod_dir,
+      fileName: response.file_name,
+      reference: response.reference,
+    });
+
+    return file;
   }
 
   fsDownloadFileGet({ pod_name, file_path }: FSDownloadFile) {
-    return this.getRequest<FSDownloadFileResponse>(
-      `${fileResourceName}/download`,
-      {
-        params: {
-          pod_name,
-          file_path,
-        },
-      }
-    );
+    return this.getRequest<FSDownloadFileResponse>("file/download", {
+      params: {
+        pod_name,
+        file_path,
+      },
+    });
   }
 
   fsDownloadFilePost({ pod_name, file_path }: FSDownloadFile) {
-    return this.postRequest<FSDownloadFileResponse>(
-      `${fileResourceName}/download`,
-      {
-        pod_name,
-        file_path,
-      }
-    );
+    return this.postRequest<FSDownloadFileResponse>("file/download", {
+      pod_name,
+      file_path,
+    });
   }
 
   fsShareFile({ pod_name, pod_path_file, dest_user }: FSShareFile) {
-    return this.postRequest<FSShareFileResponse>(`${fileResourceName}/share`, {
+    return this.postRequest<FSShareFileResponse>("file/share", {
       pod_name,
       pod_path_file,
       dest_user,
@@ -124,44 +136,35 @@ export class FileSystem extends Base {
   }
 
   fsReceiveFile({ pod_name, sharing_ref, dir_path }: FSReceiveFile) {
-    return this.getRequest<FSReceiveFileResponse>(
-      `${fileResourceName}/receive`,
-      {
-        params: {
-          pod_name,
-          sharing_ref,
-          dir_path,
-        },
-      }
-    );
+    return this.getRequest<FSReceiveFileResponse>("file/receive", {
+      params: {
+        pod_name,
+        sharing_ref,
+        dir_path,
+      },
+    });
   }
 
   fsReceiveFileInfo({ pod_name, sharing_ref }: FSReceiveFileInfo) {
-    return this.getRequest<FSReceiveFileInfoResponse>(
-      `${fileResourceName}/receiveinfo`,
-      {
-        params: {
-          pod_name,
-          sharing_ref,
-        },
-      }
-    );
+    return this.getRequest<FSReceiveFileInfoResponse>("file/receiveinfo", {
+      params: {
+        pod_name,
+        sharing_ref,
+      },
+    });
   }
 
   fsDeleteFile({ pod_name, file_path }: FSDeleteFile) {
-    return this.deleteRequest<FSDeleteFileResponse>(
-      `${fileResourceName}/delete`,
-      {
-        params: {
-          pod_name,
-          file_path,
-        },
-      }
-    );
+    return this.deleteRequest<FSDeleteFileResponse>("file/delete", {
+      params: {
+        pod_name,
+        file_path,
+      },
+    });
   }
 
   fsStatInfo({ pod_name, file_path }: FSStatInfo) {
-    return this.getRequest<FSStatInfoResponse>(`${fileResourceName}/stat`, {
+    return this.getRequest<FSStatInfoResponse>("file/stat", {
       params: {
         pod_name,
         file_path,

@@ -1,14 +1,16 @@
-import { Request } from "../request";
-import { Directory } from "./fs/directory";
+import { Request } from "../../request";
+import { Directory } from "../fs/directory";
 
 import {
   PodCloseResponse,
+  PodDelete,
   PodDeleteResponse,
   PodPresentResponse,
+  PodShare,
   PodShareResponse,
   PodStatResponse,
   PodSyncResponse,
-} from "../types/pod";
+} from "../../types/pod";
 
 import {
   FSDeleteFile,
@@ -34,13 +36,15 @@ import {
   FSStatInfoResponse,
   FSUploadFile,
   FSUploadFileResponse,
-} from "../types/file-system";
+} from "../../types/fs";
 
 type Config = {
   providerUrl: string;
   authCookie?: string;
   name: string;
 };
+
+type omit<T> = Omit<T, "pod_name">;
 
 export class Pod extends Request {
   public name: string;
@@ -62,15 +66,14 @@ export class Pod extends Request {
     });
   }
 
-  //TODO: should move types to another file
-  share({ password }: { password: string }) {
+  share({ password }: omit<PodShare>) {
     return this.postRequest<PodShareResponse>("pod/share", {
       pod_name: this.name,
       password,
     });
   }
 
-  delete({ password }: { password: string }) {
+  delete({ password }: omit<PodDelete>) {
     return this.postRequest<PodDeleteResponse>("pod/delete", {
       pod_name: this.name,
       password,
@@ -93,7 +96,7 @@ export class Pod extends Request {
     });
   }
 
-  async makeDir({ dir_path }: FSMakeDir) {
+  async makeDir({ dir_path }: omit<FSMakeDir>) {
     await this.postRequest<FSMakeDirResponse>("dir/mkdir", {
       pod_name: this.name,
       dir_path,
@@ -108,7 +111,7 @@ export class Pod extends Request {
     return dir;
   }
 
-  removeDir({ dir_path }: FSRemoveDir) {
+  removeDir({ dir_path }: omit<FSRemoveDir>) {
     return this.deleteRequest<FSRemoveDirResponse>("dir/rmdir", {
       data: {
         pod_name: this.name,
@@ -117,7 +120,7 @@ export class Pod extends Request {
     });
   }
 
-  listDir({ dir_path }: FSListDir) {
+  listDir({ dir_path }: omit<FSListDir>) {
     return this.getRequest<FSListResponse>("dir/ls", {
       params: {
         pod_name: this.name,
@@ -126,7 +129,7 @@ export class Pod extends Request {
     });
   }
 
-  statDir({ dir_path }: FSStatDir) {
+  statDir({ dir_path }: omit<FSStatDir>) {
     return this.getRequest<FSStatDirResponse>("dir/stat", {
       params: {
         pod_name: this.name,
@@ -135,7 +138,7 @@ export class Pod extends Request {
     });
   }
 
-  isDirPresent({ dir_path }: FSDirPresent) {
+  isDirPresent({ dir_path }: omit<FSDirPresent>) {
     return this.getRequest<FSStatDirResponse>("dir/present", {
       params: {
         pod_name: this.name,
@@ -144,7 +147,7 @@ export class Pod extends Request {
     });
   }
 
-  uploadFile({ dfs_compression, pod_dir, block_size }: FSUploadFile) {
+  uploadFile({ dfs_compression, pod_dir, block_size }: omit<FSUploadFile>) {
     return this.postRequest<FSUploadFileResponse>(
       "file/upload",
       {
@@ -160,7 +163,7 @@ export class Pod extends Request {
     );
   }
 
-  downloadFileGet({ file_path }: FSDownloadFile) {
+  downloadFileGet({ file_path }: omit<FSDownloadFile>) {
     return this.getRequest<FSDownloadFileResponse>("file/download", {
       params: {
         pod_name: this.name,
@@ -169,14 +172,14 @@ export class Pod extends Request {
     });
   }
 
-  downloadFilePost({ file_path }: FSDownloadFile) {
+  downloadFilePost({ file_path }: omit<FSDownloadFile>) {
     return this.postRequest<FSDownloadFileResponse>("file/download", {
       pod_name: this.name,
       file_path,
     });
   }
 
-  shareFile({ pod_path_file, dest_user }: FSShareFile) {
+  shareFile({ pod_path_file, dest_user }: omit<FSShareFile>) {
     return this.postRequest<FSShareFileResponse>("file/share", {
       pod_name: this.name,
       pod_path_file,
@@ -184,7 +187,7 @@ export class Pod extends Request {
     });
   }
 
-  receiveFile({ sharing_ref, dir_path }: FSReceiveFile) {
+  receiveFile({ sharing_ref, dir_path }: omit<FSReceiveFile>) {
     return this.getRequest<FSReceiveFileResponse>("file/receive", {
       params: {
         pod_name: this.name,
@@ -194,7 +197,7 @@ export class Pod extends Request {
     });
   }
 
-  receiveFileInfo({ sharing_ref }: FSReceiveFileInfo) {
+  receiveFileInfo({ sharing_ref }: omit<FSReceiveFileInfo>) {
     return this.getRequest<FSReceiveFileInfoResponse>("file/receiveinfo", {
       params: {
         pod_name: this.name,
@@ -203,7 +206,7 @@ export class Pod extends Request {
     });
   }
 
-  deleteFile({ file_path }: FSDeleteFile) {
+  deleteFile({ file_path }: omit<FSDeleteFile>) {
     return this.deleteRequest<FSDeleteFileResponse>("file/delete", {
       params: {
         pod_name: this.name,
@@ -212,7 +215,7 @@ export class Pod extends Request {
     });
   }
 
-  statInfo({ file_path }: FSStatInfo) {
+  statInfo({ file_path }: omit<FSStatInfo>) {
     return this.getRequest<FSStatInfoResponse>("file/stat", {
       params: {
         pod_name: this.name,
