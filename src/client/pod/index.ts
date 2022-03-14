@@ -1,8 +1,8 @@
 import { Request } from "../../request";
 
-import { FileSystem } from "./fs";
+import { PodFS } from "./pod-fs";
 import { DocumentDB } from "./document-db";
-import { KeyValueStore } from "./kv-store";
+import { PodKVStore } from "./pod-kv-store";
 
 import {
   PodCloseResponse,
@@ -75,8 +75,8 @@ class Pod extends Request {
   }
 }
 
-interface Pod extends FileSystem, DocumentDB, KeyValueStore {}
+interface Pod extends FileSystem, DocumentDB, PodKVStore {}
 
-applyMixins(Pod, [FileSystem, DocumentDB, KeyValueStore]);
+applyMixins(Pod, [FileSystem, DocumentDB, PodKVStore]);
 
 export { Pod };

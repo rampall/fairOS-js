@@ -1,9 +1,9 @@
 import { Request } from "../../request";
 
-import { FS } from "./fs";
-import { Pod } from "./pod";
-import { KeyValueStore } from "./kv-store";
-import { DocumentDB } from "./document-db";
+import { FS } from "../../models/fs";
+import { Pod } from "../../models/pod";
+import { KVStore } from "../../models/kv-store";
+import { DocumentDB } from "../../models/document-db";
 
 import { applyMixins } from "../../utils";
 
@@ -71,8 +71,8 @@ class User extends Request {
   }
 }
 
-interface User extends FS, Pod, KeyValueStore, DocumentDB {}
+interface User extends FS, Pod, KVStore, DocumentDB {}
 
-applyMixins(User, [FS, Pod, KeyValueStore, DocumentDB]);
+applyMixins(User, [FS, Pod, KVStore, DocumentDB]);
 
 export { User };

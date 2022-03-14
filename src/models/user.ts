@@ -1,6 +1,5 @@
-import { Request } from "../../request";
-import { User as UserClient } from "../user";
-import { User } from "../../models/user";
+import { Request } from "../request";
+import { User as UserClient } from "../client/user";
 
 import {
   UserSignUp,
@@ -13,17 +12,14 @@ import {
   UserPresentResponse,
   UserLoggedIn,
   UserLoggedInResponse,
-} from "../../types/user";
+  UserLogoutResponse,
+  UserExportResponse,
+  UserDelete,
+  UserStatReponse,
+  UserDeleteResponse,
+} from "../types/user";
 
-type Config = {
-  providerUrl: string;
-};
-
-export class FairOS extends User {
-  constructor(config: Config) {
-    super(config);
-  }
-
+export class User extends Request {
   async userSignup({ user_name, password, mnemonic }: UserSignUp) {
     const response = await this.postRequest<UserSignUpResponse>("user/signup", {
       user_name,
@@ -31,7 +27,7 @@ export class FairOS extends User {
       mnemonic,
     });
 
-    const user = new User({
+    const user = new UserClient({
       providerUrl: this.providerUrl,
       authCookie: response.cookies,
       username: user_name,
@@ -47,7 +43,7 @@ export class FairOS extends User {
       password,
     });
 
-    const user = new User({
+    const user = new UserClient({
       providerUrl: this.providerUrl,
       authCookie: response.cookies,
       username: user_name,
@@ -64,7 +60,7 @@ export class FairOS extends User {
       mnemonic,
     });
 
-    const user = new User({
+    const user = new UserClient({
       providerUrl: this.providerUrl,
       authCookie: response.cookies,
       username: user_name,
@@ -88,5 +84,25 @@ export class FairOS extends User {
         user_name,
       },
     });
+  }
+
+  userLogout() {
+    return this.postRequest<UserLogoutResponse>("user/logout");
+  }
+
+  userExport() {
+    return this.postRequest<UserExportResponse>("user/export");
+  }
+
+  userDelete({ password }: UserDelete) {
+    return this.deleteRequest<UserDeleteResponse>("user/delete", {
+      data: {
+        password,
+      },
+    });
+  }
+
+  userStat() {
+    return this.getRequest<UserStatReponse>("user/stat");
   }
 }

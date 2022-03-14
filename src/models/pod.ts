@@ -1,5 +1,5 @@
-import { Request } from "../../request";
-import { Pod as PodBase } from "../pod";
+import { Request } from "../request";
+import { Pod as PodClient } from "../client/pod";
 
 import {
   PodClose,
@@ -23,12 +23,12 @@ import {
   PodStatResponse,
   PodSync,
   PodSyncResponse,
-} from "../../types/pod";
+} from "../types/pod";
 
 const resourceName = "pod";
 
 export class Pod extends Request {
-  podReceiveInfo({ reference }: PodReceiveInfo) {
+  protected podReceiveInfo({ reference }: PodReceiveInfo) {
     return this.getRequest<PodReceiveInfoResponse>(
       `${resourceName}/receiveinfo`,
       {
@@ -39,7 +39,7 @@ export class Pod extends Request {
     );
   }
 
-  podReceive({ reference }: PodReceive) {
+  protected podReceive({ reference }: PodReceive) {
     return this.getRequest<PodReceiveResponse>(`${resourceName}/receive`, {
       params: {
         reference,
@@ -47,7 +47,7 @@ export class Pod extends Request {
     });
   }
 
-  async podNew({ pod_name, password }: PodNew) {
+  protected async podNew({ pod_name, password }: PodNew) {
     const response = await this.postRequest<PodNewResponse>(
       `${resourceName}/new`,
       {
@@ -56,7 +56,7 @@ export class Pod extends Request {
       }
     );
 
-    const pod = new PodBase({
+    const pod = new PodClient({
       providerUrl: this.providerUrl,
       authCookie: response.cookies,
       name: pod_name,
@@ -65,7 +65,7 @@ export class Pod extends Request {
     return pod;
   }
 
-  async podOpen({ pod_name, password }: PodOpen) {
+  protected async podOpen({ pod_name, password }: PodOpen) {
     const response = await this.postRequest<PodOpenResponse>(
       `${resourceName}/open`,
       {
@@ -74,7 +74,7 @@ export class Pod extends Request {
       }
     );
 
-    const pod = new PodBase({
+    const pod = new PodClient({
       providerUrl: this.providerUrl,
       authCookie: response.cookies,
       name: pod_name,
@@ -83,37 +83,37 @@ export class Pod extends Request {
     return pod;
   }
 
-  podClose({ pod_name }: PodClose) {
+  protected podClose({ pod_name }: PodClose) {
     return this.postRequest<PodCloseResponse>(`${resourceName}/close`, {
       pod_name,
     });
   }
 
-  podSync({ pod_name }: PodSync) {
+  protected podSync({ pod_name }: PodSync) {
     return this.postRequest<PodSyncResponse>(`${resourceName}/sync`, {
       pod_name,
     });
   }
 
-  podShare({ pod_name, password }: PodShare) {
+  protected podShare({ pod_name, password }: PodShare) {
     return this.postRequest<PodShareResponse>(`${resourceName}/share`, {
       pod_name,
       password,
     });
   }
 
-  podDelete({ pod_name, password }: PodDelete) {
+  protected podDelete({ pod_name, password }: PodDelete) {
     return this.postRequest<PodDeleteResponse>(`${resourceName}/delete`, {
       pod_name,
       password,
     });
   }
 
-  podList() {
+  protected podList() {
     return this.getRequest<PodListResponse>(`${resourceName}/ls`);
   }
 
-  podStat({ pod_name }: PodStat) {
+  protected podStat({ pod_name }: PodStat) {
     return this.getRequest<PodStatResponse>(`${resourceName}/stat`, {
       data: {
         pod_name,
@@ -121,7 +121,7 @@ export class Pod extends Request {
     });
   }
 
-  podPresent({ pod_name }: PodPresent) {
+  protected podPresent({ pod_name }: PodPresent) {
     return this.getRequest<PodPresentResponse>(`${resourceName}/present`, {
       data: {
         pod_name,

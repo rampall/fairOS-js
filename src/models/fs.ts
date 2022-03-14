@@ -1,6 +1,6 @@
-import { Request } from "../../request";
-import { Directory } from "../fs/directory";
-import { File } from "../fs/file";
+import { Request } from "../request";
+import { Directory } from "../client/fs/directory";
+import { File } from "../client/fs/file";
 
 import {
   FSDeleteFile,
@@ -26,13 +26,13 @@ import {
   FSStatInfoResponse,
   FSUploadFile,
   FSUploadFileResponse,
-} from "../../types/fs";
+} from "../types/fs";
 
 const dirResourceName = "dir";
 const fileResourceName = "file";
 
 export class FS extends Request {
-  async fsMakeDir({ pod_name, dir_path }: FSMakeDir) {
+  protected async fsMakeDir({ pod_name, dir_path }: FSMakeDir) {
     const response = await this.postRequest<FSMakeDirResponse>(
       `${dirResourceName}/mkdir`,
       {
@@ -51,7 +51,7 @@ export class FS extends Request {
     return dir;
   }
 
-  fsRemoveDir({ pod_name, dir_path }: FSRemoveDir) {
+  protected fsRemoveDir({ pod_name, dir_path }: FSRemoveDir) {
     return this.deleteRequest<FSRemoveDirResponse>(`${dirResourceName}/rmdir`, {
       data: {
         pod_name,
@@ -60,7 +60,7 @@ export class FS extends Request {
     });
   }
 
-  fsListDir({ pod_name, dir_path }: FSListDir) {
+  protected fsListDir({ pod_name, dir_path }: FSListDir) {
     return this.getRequest<FSListResponse>(`${dirResourceName}/ls`, {
       params: {
         pod_name,
@@ -69,7 +69,7 @@ export class FS extends Request {
     });
   }
 
-  fsStatDir({ pod_name, dir_path }: FSStatDir) {
+  protected fsStatDir({ pod_name, dir_path }: FSStatDir) {
     return this.getRequest<FSStatDirResponse>(`${dirResourceName}/stat`, {
       params: {
         pod_name,
@@ -78,7 +78,7 @@ export class FS extends Request {
     });
   }
 
-  fsDirPresent({ pod_name, dir_path }: FSDirPresent) {
+  protected fsDirPresent({ pod_name, dir_path }: FSDirPresent) {
     return this.getRequest<FSStatDirResponse>(`${dirResourceName}/present`, {
       params: {
         pod_name,
@@ -87,7 +87,7 @@ export class FS extends Request {
     });
   }
 
-  async fsUploadFile({
+  protected async fsUploadFile({
     dfs_compression,
     pod_name,
     pod_dir,
@@ -119,7 +119,7 @@ export class FS extends Request {
     return file;
   }
 
-  fsDownloadFileGet({ pod_name, file_path }: FSDownloadFile) {
+  protected fsDownloadFileGet({ pod_name, file_path }: FSDownloadFile) {
     return this.getRequest<FSDownloadFileResponse>(
       `${fileResourceName}/download`,
       {
@@ -131,7 +131,7 @@ export class FS extends Request {
     );
   }
 
-  fsDownloadFilePost({ pod_name, file_path }: FSDownloadFile) {
+  protected fsDownloadFilePost({ pod_name, file_path }: FSDownloadFile) {
     return this.postRequest<FSDownloadFileResponse>(
       `${fileResourceName}/download`,
       {
@@ -141,7 +141,7 @@ export class FS extends Request {
     );
   }
 
-  fsShareFile({ pod_name, pod_path_file, dest_user }: FSShareFile) {
+  protected fsShareFile({ pod_name, pod_path_file, dest_user }: FSShareFile) {
     return this.postRequest<FSShareFileResponse>(`${fileResourceName}/share`, {
       pod_name,
       pod_path_file,
@@ -149,7 +149,7 @@ export class FS extends Request {
     });
   }
 
-  fsReceiveFile({ pod_name, sharing_ref, dir_path }: FSReceiveFile) {
+  protected fsReceiveFile({ pod_name, sharing_ref, dir_path }: FSReceiveFile) {
     return this.getRequest<FSReceiveFileResponse>(
       `${fileResourceName}/receive`,
       {
@@ -162,7 +162,7 @@ export class FS extends Request {
     );
   }
 
-  fsReceiveFileInfo({ pod_name, sharing_ref }: FSReceiveFileInfo) {
+  protected fsReceiveFileInfo({ pod_name, sharing_ref }: FSReceiveFileInfo) {
     return this.getRequest<FSReceiveFileInfoResponse>(
       `${fileResourceName}/receiveinfo`,
       {
@@ -174,7 +174,7 @@ export class FS extends Request {
     );
   }
 
-  fsDeleteFile({ pod_name, file_path }: FSDeleteFile) {
+  protected fsDeleteFile({ pod_name, file_path }: FSDeleteFile) {
     return this.deleteRequest<FSDeleteFileResponse>(
       `${fileResourceName}/delete`,
       {
@@ -186,7 +186,7 @@ export class FS extends Request {
     );
   }
 
-  fsStatInfo({ pod_name, file_path }: FSStatInfo) {
+  protected fsStatInfo({ pod_name, file_path }: FSStatInfo) {
     return this.getRequest<FSStatInfoResponse>(`${fileResourceName}/stat`, {
       params: {
         pod_name,
