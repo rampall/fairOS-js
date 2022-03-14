@@ -16,8 +16,6 @@ import {
 import { FSModel } from "../../models/fs";
 
 export class UserFS extends FSModel {
-  public readonly podName: string = "";
-
   async fsMakeDir({ pod_name, dir_path }: FSMakeDir) {
     return super.fsMakeDir({ pod_name, dir_path });
   }
