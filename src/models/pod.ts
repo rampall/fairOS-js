@@ -1,5 +1,5 @@
 import { Request } from "../request";
-import { Pod as PodClient } from "../client/pod";
+import { PodClient } from "../client/pod";
 
 import {
   PodClose,
@@ -27,7 +27,7 @@ import {
 
 const resourceName = "pod";
 
-export class Pod extends Request {
+export class PodModel extends Request {
   protected podReceiveInfo({ reference }: PodReceiveInfo) {
     return this.getRequest<PodReceiveInfoResponse>(
       `${resourceName}/receiveinfo`,

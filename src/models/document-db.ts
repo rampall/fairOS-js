@@ -24,7 +24,7 @@ import {
   DocPut,
   DocPutResponse,
 } from "../types/document-db";
-import { DocumentTable } from "../client/document-db/table";
+import { DocumentTableClient } from "../client/document-db/table";
 
 const resourceName = "doc";
 
@@ -45,7 +45,7 @@ export class DocumentDBModel extends Request {
       }
     );
 
-    const docTable = new DocumentTable({
+    const docTable = new DocumentTableClient({
       providerUrl: this.providerUrl,
       authCookie: response.cookies,
       podName: pod_name,
@@ -72,7 +72,7 @@ export class DocumentDBModel extends Request {
       }
     );
 
-    const docTable = new DocumentTable({
+    const docTable = new DocumentTableClient({
       providerUrl: this.providerUrl,
       authCookie: response.cookies,
       podName: pod_name,

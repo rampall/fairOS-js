@@ -1,6 +1,6 @@
 import { Request } from "../request";
-import { Directory } from "../client/fs/directory";
-import { File } from "../client/fs/file";
+import { FSDirectoryClient } from "../client/fs/directory";
+import { FSFileClient } from "../client/fs/file";
 
 import {
   FSDeleteFile,
@@ -41,7 +41,7 @@ export class FSModel extends Request {
       }
     );
 
-    const dir = new Directory({
+    const dir = new FSDirectoryClient({
       providerUrl: this.providerUrl,
       authCookie: response.cookies,
       podName: pod_name,
@@ -107,7 +107,7 @@ export class FSModel extends Request {
       }
     );
 
-    const file = new File({
+    const file = new FSFileClient({
       providerUrl: this.providerUrl,
       authCookie: response.cookies,
       podName: pod_name,

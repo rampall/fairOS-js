@@ -25,11 +25,11 @@ import {
   KVKeyPresent,
   KVKeyPresentResponse,
 } from "../types/kv-store";
-import { KeyValueTable } from "../client/kv-store/table";
+import { KVTableClient } from "../client/kv-store/table";
 
 const resourceName = "kv";
 
-export class KVStore extends Request {
+export class KVStoreModel extends Request {
   protected async kvNewTable({ pod_name, table_name, indexType }: KVNewTable) {
     const response = await this.postRequest<KVNewTableResponse>(
       `${resourceName}/new`,
@@ -40,7 +40,7 @@ export class KVStore extends Request {
       }
     );
 
-    const kvTable = new KeyValueTable({
+    const kvTable = new KVTableClient({
       providerUrl: this.providerUrl,
       authCookie: response.cookies,
       podName: pod_name,
@@ -67,7 +67,7 @@ export class KVStore extends Request {
       }
     );
 
-    const kvTable = new KeyValueTable({
+    const kvTable = new KVTableClient({
       providerUrl: this.providerUrl,
       authCookie: response.cookies,
       podName: pod_name,

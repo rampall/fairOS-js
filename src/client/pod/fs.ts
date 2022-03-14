@@ -13,11 +13,11 @@ import {
   FSUploadFile,
 } from "../../types/fs";
 
-import { FS } from "../../models/fs";
+import { FSModel } from "../../models/fs";
 
 type omit<T> = Omit<T, "pod_name">;
 
-export class PodFS extends FS {
+export class PodFS extends FSModel {
   public readonly podName: string = "";
 
   async makeDir({ dir_path }: omit<FSMakeDir>) {

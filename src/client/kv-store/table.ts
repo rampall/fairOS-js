@@ -1,21 +1,12 @@
-import { Request } from "../../request";
+import { KVStoreModel } from "../../models/kv-store";
 
 import {
-  KVCountTablePairsResponse,
-  KVDeleteTableResponse,
   KVPutPair,
-  KVPutPairResponse,
   KVGetValue,
-  KVGetValueResponse,
   KVDeleteValue,
-  KVDeleteValueResponse,
   KVSeekKey,
-  KVSeekKeyResponse,
-  KVGetSeekNextResponse,
   KVLoadCSV,
-  KVLoadCSVResponse,
   KVKeyPresent,
-  KVKeyPresentResponse,
 } from "../../types/kv-store";
 
 type Config = {
@@ -27,7 +18,7 @@ type Config = {
 
 type omit<T> = Omit<T, "pod_name" | "table_name">;
 
-export class KeyValueTable extends Request {
+export class KVTableClient extends KVStoreModel {
   public readonly podName: string;
   public readonly tableName: string;
 
@@ -38,23 +29,21 @@ export class KeyValueTable extends Request {
   }
 
   countPairs() {
-    return this.postRequest<KVCountTablePairsResponse>("kv/count", {
+    return super.kvCountTablePairs({
       pod_name: this.podName,
       table_name: this.tableName,
     });
   }
 
   delete() {
-    return this.deleteRequest<KVDeleteTableResponse>("kv/delete", {
-      data: {
-        pod_name: this.podName,
-        table_name: this.tableName,
-      },
+    return super.kvDeleteTable({
+      pod_name: this.podName,
+      table_name: this.tableName,
     });
   }
 
   putPair({ key, value }: omit<KVPutPair>) {
-    return this.postRequest<KVPutPairResponse>("kv/entry/put", {
+    return super.kvPutPair({
       pod_name: this.podName,
       table_name: this.tableName,
       key,
@@ -64,28 +53,24 @@ export class KeyValueTable extends Request {
 
   //TODO: do we need both endpoints?
   getValue({ key, format = "string" }: omit<KVGetValue>) {
-    return this.getRequest<KVGetValueResponse>("kv/entry/get-data", {
-      params: {
-        pod_name: this.podName,
-        table_name: this.tableName,
-        key,
-        format,
-      },
+    return super.kvGetValue({
+      pod_name: this.podName,
+      table_name: this.tableName,
+      key,
+      format,
     });
   }
 
   deleteValue({ key }: omit<KVDeleteValue>) {
-    return this.deleteRequest<KVDeleteValueResponse>("kv/entry/del", {
-      data: {
-        pod_name: this.podName,
-        table_name: this.tableName,
-        key,
-      },
+    return super.kvDeleteValue({
+      pod_name: this.podName,
+      table_name: this.tableName,
+      key,
     });
   }
 
   seekKey({ start, end, limit }: omit<KVSeekKey>) {
-    return this.postRequest<KVSeekKeyResponse>("kv/seek", {
+    return super.kvSeekKey({
       pod_name: this.podName,
       table_name: this.tableName,
       start,
@@ -95,16 +80,14 @@ export class KeyValueTable extends Request {
   }
 
   getSeekNext() {
-    return this.getRequest<KVGetSeekNextResponse>("kv/seek/next", {
-      params: {
-        pod_name: this.podName,
-        table_name: this.tableName,
-      },
+    return super.kvGetSeekNext({
+      pod_name: this.podName,
+      table_name: this.tableName,
     });
   }
 
   loadCSV({ memory }: omit<KVLoadCSV>) {
-    return this.postRequest<KVLoadCSVResponse>("kv/loadcsv", {
+    return super.kvLoadCSV({
       pod_name: this.podName,
       table_name: this.tableName,
       memory,
@@ -112,12 +95,10 @@ export class KeyValueTable extends Request {
   }
 
   isKeyPresent({ key }: omit<KVKeyPresent>) {
-    return this.getRequest<KVKeyPresentResponse>("kv/present", {
-      params: {
-        pod_name: this.podName,
-        table_name: this.tableName,
-        key,
-      },
+    return super.kvKeyPresent({
+      pod_name: this.podName,
+      table_name: this.tableName,
+      key,
     });
   }
 }

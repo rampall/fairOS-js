@@ -1,21 +1,12 @@
-import { Request } from "../../request";
-
-import { FS } from "../../models/fs";
-import { Pod } from "../../models/pod";
-import { KVStore } from "../../models/kv-store";
-import { DocumentDB } from "../../models/document-db";
+import { FSModel } from "../../models/fs";
+import { PodModel } from "../../models/pod";
+import { KVStoreModel } from "../../models/kv-store";
+import { DocumentDBModel } from "../../models/document-db";
+import { UserModel } from "../../models/user";
 
 import { applyMixins } from "../../utils";
 
-import {
-  UserLogoutResponse,
-  UserExportResponse,
-  UserDelete,
-  UserStatReponse,
-  UserDeleteResponse,
-  UserPresentResponse,
-  UserLoggedInResponse,
-} from "../../types/user";
+import { UserDelete } from "../../types/user";
 
 type Config = {
   providerUrl: string;
@@ -24,7 +15,7 @@ type Config = {
   address?: string;
 };
 
-class UserClient extends Request {
+class UserClient extends UserModel {
   public readonly username: string;
   public readonly address: string | undefined;
 
@@ -35,44 +26,36 @@ class UserClient extends Request {
   }
 
   logout() {
-    return this.postRequest<UserLogoutResponse>("user/logout");
+    return super.userLogout();
   }
 
   export() {
-    return this.postRequest<UserExportResponse>("user/export");
+    return super.userExport();
   }
 
   delete({ password }: UserDelete) {
-    return this.deleteRequest<UserDeleteResponse>("user/delete", {
-      data: {
-        password,
-      },
-    });
+    return super.userDelete({ password });
   }
 
   stat() {
-    return this.getRequest<UserStatReponse>("user/stat");
+    return super.userStat();
   }
 
   isPresent() {
-    return this.getRequest<UserPresentResponse>("user/present", {
-      params: {
-        user_name: this.username,
-      },
+    return super.userPresent({
+      user_name: this.username,
     });
   }
 
   isLoggedIn() {
-    return this.getRequest<UserLoggedInResponse>("user/isloggedin", {
-      params: {
-        user_name: this.username,
-      },
+    return super.userLoggedIn({
+      user_name: this.username,
     });
   }
 }
 
-interface UserClient extends FS, Pod, KVStore, DocumentDB {}
+interface UserClient extends FSModel, PodModel, KVStoreModel, DocumentDBModel {}
 
-applyMixins(UserClient, [FS, Pod, KVStore, DocumentDB]);
+applyMixins(UserClient, [FSModel, PodModel, KVStoreModel, DocumentDBModel]);
 
 export { UserClient };

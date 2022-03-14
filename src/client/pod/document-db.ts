@@ -1,88 +1,47 @@
-import { Request } from "../../request";
+import { DocumentDBModel } from "../../models/document-db";
 
 import {
   DocCount,
-  DocCountResponse,
   DocCreateDB,
-  DocCreateDBResponse,
   DocDeleteDB,
-  DocDeleteDBResponse,
   DocDelete,
-  DocDeleteResponse,
   DocFind,
-  DocFindResponse,
   DocGet,
-  DocGetResponse,
   DocIndexJson,
-  DocIndexJsonResponse,
-  DocListDBs,
-  DocListDBsResponse,
   DocLoadJson,
-  DocLoadJsonResponse,
   DocOpenDB,
-  DocOpenDBResponse,
   DocPut,
-  DocPutResponse,
 } from "../../types/document-db";
-import { DocumentTable } from "../document-db/table";
-
-const resourceName = "doc";
 
 type omit<T> = Omit<T, "pod_name">;
 
-export class DocumentDB extends Request {
+export class PodDocumentDB extends DocumentDBModel {
   public readonly podName: string = "";
 
   async docCreateDB({ table_name, si, mutable }: omit<DocCreateDB>) {
-    const response = await this.postRequest<DocCreateDBResponse>(
-      `${resourceName}/new`,
-      {
-        pod_name: this.podName,
-        table_name,
-        si,
-        mutable,
-      }
-    );
-
-    const docTable = new DocumentTable({
-      providerUrl: this.providerUrl,
-      authCookie: response.cookies,
-      podName: this.podName,
-      tableName: table_name,
+    return super.docCreateDB({
+      pod_name: this.podName,
+      table_name,
+      si,
+      mutable,
     });
-
-    return docTable;
   }
 
   docListDBs() {
-    return this.getRequest<DocListDBsResponse>(`${resourceName}/ls`, {
-      params: {
-        pod_name: this.podName,
-      },
+    return super.docListDBs({
+      pod_name: this.podName,
     });
   }
 
   async docOpenDB({ table_name }: omit<DocOpenDB>) {
-    const response = await this.postRequest<DocOpenDBResponse>(
-      `${resourceName}/open`,
-      {
-        pod_name: this.podName,
-        table_name,
-      }
-    );
-
-    const docTable = new DocumentTable({
-      providerUrl: this.providerUrl,
-      authCookie: response.cookies,
-      podName: this.podName,
-      tableName: table_name,
+    return super.docOpenDB({
+      pod_name: this.podName,
+      table_name,
     });
-
-    return docTable;
   }
 
   docCount({ table_name, expr }: omit<DocCount>) {
-    return this.postRequest<DocCountResponse>(`${resourceName}/count`, {
+    return super.docCount({
       pod_name: this.podName,
       table_name,
       expr,
@@ -90,34 +49,30 @@ export class DocumentDB extends Request {
   }
 
   docDeleteDB({ table_name }: omit<DocDeleteDB>) {
-    return this.deleteRequest<DocDeleteDBResponse>(`${resourceName}/delete`, {
-      data: {
-        pod_name: this.podName,
-        table_name,
-      },
+    return super.docDeleteDB({
+      pod_name: this.podName,
+      table_name,
     });
   }
 
   docFind({ table_name, expr, limit }: omit<DocFind>) {
-    return this.deleteRequest<DocFindResponse>(`${resourceName}/find`, {
-      data: {
-        pod_name: this.podName,
-        table_name,
-        expr,
-        limit,
-      },
+    return super.docFind({
+      pod_name: this.podName,
+      table_name,
+      expr,
+      limit,
     });
   }
 
   docLoadJson({ table_name }: omit<DocLoadJson>) {
-    return this.postRequest<DocLoadJsonResponse>(`${resourceName}/loadjson`, {
+    return super.docLoadJson({
       pod_name: this.podName,
       table_name,
     });
   }
 
   docIndexJson({ table_name, file }: omit<DocIndexJson>) {
-    return this.postRequest<DocIndexJsonResponse>(`${resourceName}/indexjson`, {
+    return super.docIndexJson({
       pod_name: this.podName,
       table_name,
       file,
@@ -125,7 +80,7 @@ export class DocumentDB extends Request {
   }
 
   docPut({ table_name, doc }: omit<DocPut>) {
-    return this.postRequest<DocPutResponse>(`${resourceName}/entry/put`, {
+    return super.docPut({
       pod_name: this.podName,
       table_name,
       doc,
@@ -133,22 +88,18 @@ export class DocumentDB extends Request {
   }
 
   docGet({ table_name, id }: omit<DocGet>) {
-    return this.getRequest<DocGetResponse>(`${resourceName}/entry/get`, {
-      params: {
-        pod_name: this.podName,
-        table_name,
-        id,
-      },
+    return super.docGet({
+      pod_name: this.podName,
+      table_name,
+      id,
     });
   }
 
   docDelete({ table_name, id }: omit<DocDelete>) {
-    return this.deleteRequest<DocDeleteResponse>(`${resourceName}/entry/del`, {
-      data: {
-        pod_name: this.podName,
-        table_name,
-        id,
-      },
+    return super.docDelete({
+      pod_name: this.podName,
+      table_name,
+      id,
     });
   }
 }

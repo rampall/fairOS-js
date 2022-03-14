@@ -1,20 +1,10 @@
-import { Request } from "../../request";
+import { PodFS } from "./fs";
+import { PodDocumentDB } from "./document-db";
+import { PodKVStore } from "./kv-store";
 
-import { PodFS } from "./pod-fs";
-import { DocumentDB } from "./document-db";
-import { PodKVStore } from "./pod-kv-store";
-
-import {
-  PodCloseResponse,
-  PodDelete,
-  PodDeleteResponse,
-  PodPresentResponse,
-  PodShare,
-  PodShareResponse,
-  PodStatResponse,
-  PodSyncResponse,
-} from "../../types/pod";
+import { PodDelete, PodShare } from "../../types/pod";
 import { applyMixins } from "../../utils";
+import { PodModel } from "../../models/pod";
 
 type Config = {
   providerUrl: string;
@@ -24,7 +14,7 @@ type Config = {
 
 type omit<T> = Omit<T, "pod_name">;
 
-class Pod extends Request {
+class PodClient extends PodModel {
   public readonly podName: string;
 
   constructor(config: Config) {
@@ -33,50 +23,46 @@ class Pod extends Request {
   }
 
   close() {
-    return this.postRequest<PodCloseResponse>("pod/close", {
+    return super.podClose({
       pod_name: this.podName,
     });
   }
 
   sync() {
-    return this.postRequest<PodSyncResponse>("pod/sync", {
+    return super.podSync({
       pod_name: this.podName,
     });
   }
 
   share({ password }: omit<PodShare>) {
-    return this.postRequest<PodShareResponse>("pod/share", {
+    return super.podShare({
       pod_name: this.podName,
       password,
     });
   }
 
   delete({ password }: omit<PodDelete>) {
-    return this.postRequest<PodDeleteResponse>("pod/delete", {
+    return super.podDelete({
       pod_name: this.podName,
       password,
     });
   }
 
   stat() {
-    return this.getRequest<PodStatResponse>("pod/stat", {
-      data: {
-        pod_name: this.podName,
-      },
+    return super.podStat({
+      pod_name: this.podName,
     });
   }
 
   isPresent() {
-    return this.getRequest<PodPresentResponse>("pod/present", {
-      data: {
-        pod_name: this.podName,
-      },
+    return super.podPresent({
+      pod_name: this.podName,
     });
   }
 }
 
-interface Pod extends FileSystem, DocumentDB, PodKVStore {}
+interface PodClient extends PodFS, PodDocumentDB, PodKVStore {}
 
-applyMixins(Pod, [FileSystem, DocumentDB, PodKVStore]);
+applyMixins(PodClient, [PodFS, PodDocumentDB, PodKVStore]);
 
-export { Pod };
+export { PodClient };

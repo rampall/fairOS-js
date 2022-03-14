@@ -1,4 +1,4 @@
-import { KVStore } from "../../models/kv-store";
+import { KVStoreModel } from "../../models/kv-store";
 
 import {
   KVNewTable,
@@ -16,7 +16,7 @@ import {
 
 type omit<T> = Omit<T, "pod_name">;
 
-export class PodKVStore extends KVStore {
+export class PodKVStore extends KVStoreModel {
   public readonly podName: string = "";
 
   async kvNewTable({ table_name, indexType }: omit<KVNewTable>) {
