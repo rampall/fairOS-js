@@ -1,7 +1,8 @@
-import { FSModel } from "../../models/fs";
-import { PodModel } from "../../models/pod";
-import { KVStoreModel } from "../../models/kv-store";
-import { DocumentDBModel } from "../../models/document-db";
+import { UserDocumentDB } from "./document-db";
+import { UserFS } from "./fs";
+import { UserKVStore } from "./kv-store";
+import { UserPod } from "./pod";
+
 import { UserModel } from "../../models/user";
 
 import { applyMixins } from "../../utils";
@@ -54,8 +55,8 @@ class UserClient extends UserModel {
   }
 }
 
-interface UserClient extends FSModel, PodModel, KVStoreModel, DocumentDBModel {}
+interface UserClient extends UserFS, UserPod, UserKVStore, UserDocumentDB {}
 
-applyMixins(UserClient, [FSModel, PodModel, KVStoreModel, DocumentDBModel]);
+applyMixins(UserClient, [UserFS, UserPod, UserKVStore, UserDocumentDB]);
 
 export { UserClient };

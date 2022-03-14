@@ -19,13 +19,18 @@ import {
   UserDeleteResponse,
 } from "../types/user";
 
+const resourceName = "user";
+
 export class UserModel extends Request {
-  async userSignup({ user_name, password, mnemonic }: UserSignUp) {
-    const response = await this.postRequest<UserSignUpResponse>("user/signup", {
-      user_name,
-      password,
-      mnemonic,
-    });
+  protected async userSignup({ user_name, password, mnemonic }: UserSignUp) {
+    const response = await this.postRequest<UserSignUpResponse>(
+      `${resourceName}/signup`,
+      {
+        user_name,
+        password,
+        mnemonic,
+      }
+    );
 
     const user = new UserClient({
       providerUrl: this.providerUrl,
@@ -37,11 +42,14 @@ export class UserModel extends Request {
     return user;
   }
 
-  async userLogin({ user_name, password }: UserLogin) {
-    const response = await this.postRequest<UserLoginResponse>("user/login", {
-      user_name,
-      password,
-    });
+  protected async userLogin({ user_name, password }: UserLogin) {
+    const response = await this.postRequest<UserLoginResponse>(
+      `${resourceName}/login`,
+      {
+        user_name,
+        password,
+      }
+    );
 
     const user = new UserClient({
       providerUrl: this.providerUrl,
@@ -52,13 +60,21 @@ export class UserModel extends Request {
     return user;
   }
 
-  async userImport({ user_name, password, address, mnemonic }: UserImport) {
-    const response = await this.postRequest<UserImportResponse>("user/import", {
-      user_name,
-      password,
-      address,
-      mnemonic,
-    });
+  protected async userImport({
+    user_name,
+    password,
+    address,
+    mnemonic,
+  }: UserImport) {
+    const response = await this.postRequest<UserImportResponse>(
+      `${resourceName}/import`,
+      {
+        user_name,
+        password,
+        address,
+        mnemonic,
+      }
+    );
 
     const user = new UserClient({
       providerUrl: this.providerUrl,
@@ -70,39 +86,39 @@ export class UserModel extends Request {
     return user;
   }
 
-  userPresent({ user_name }: UserPresent) {
-    return this.getRequest<UserPresentResponse>("user/present", {
+  protected userPresent({ user_name }: UserPresent) {
+    return this.getRequest<UserPresentResponse>(`${resourceName}/present`, {
       params: {
         user_name,
       },
     });
   }
 
-  userLoggedIn({ user_name }: UserLoggedIn) {
-    return this.getRequest<UserLoggedInResponse>("user/isloggedin", {
+  protected userLoggedIn({ user_name }: UserLoggedIn) {
+    return this.getRequest<UserLoggedInResponse>(`${resourceName}/isloggedin`, {
       params: {
         user_name,
       },
     });
   }
 
-  userLogout() {
-    return this.postRequest<UserLogoutResponse>("user/logout");
+  protected userLogout() {
+    return this.postRequest<UserLogoutResponse>(`${resourceName}/logout`);
   }
 
-  userExport() {
-    return this.postRequest<UserExportResponse>("user/export");
+  protected userExport() {
+    return this.postRequest<UserExportResponse>(`${resourceName}/export`);
   }
 
-  userDelete({ password }: UserDelete) {
-    return this.deleteRequest<UserDeleteResponse>("user/delete", {
+  protected userDelete({ password }: UserDelete) {
+    return this.deleteRequest<UserDeleteResponse>(`${resourceName}/delete`, {
       data: {
         password,
       },
     });
   }
 
-  userStat() {
-    return this.getRequest<UserStatReponse>("user/stat");
+  protected userStat() {
+    return this.getRequest<UserStatReponse>(`${resourceName}/stat`);
   }
 }
