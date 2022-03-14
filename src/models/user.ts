@@ -1,5 +1,5 @@
 import { Request } from "../request";
-import { User as UserClient } from "../client/user";
+import { UserClient } from "../client/user";
 
 import {
   UserSignUp,
@@ -19,7 +19,7 @@ import {
   UserDeleteResponse,
 } from "../types/user";
 
-export class User extends Request {
+export class UserModel extends Request {
   async userSignup({ user_name, password, mnemonic }: UserSignUp) {
     const response = await this.postRequest<UserSignUpResponse>("user/signup", {
       user_name,

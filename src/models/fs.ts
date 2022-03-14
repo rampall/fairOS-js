@@ -31,7 +31,7 @@ import {
 const dirResourceName = "dir";
 const fileResourceName = "file";
 
-export class FS extends Request {
+export class FSModel extends Request {
   protected async fsMakeDir({ pod_name, dir_path }: FSMakeDir) {
     const response = await this.postRequest<FSMakeDirResponse>(
       `${dirResourceName}/mkdir`,

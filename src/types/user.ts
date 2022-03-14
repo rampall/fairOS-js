@@ -18,14 +18,13 @@ export interface UserLogin {
 
 export interface UserLoginResponse extends BaseResponse {}
 
-//TODO: maybe better type
+//TODO: Fix this. address and mnemonic
 export type UserImport = {
   user_name: string;
   password: string;
-} & (
-  | { address: string; mnemonic?: never }
-  | { mnemonic: string; address?: never }
-);
+  address?: string;
+  mnemonic?: string;
+};
 
 export interface UserImportResponse {
   address: string;

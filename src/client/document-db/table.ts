@@ -1,22 +1,12 @@
-import { Request } from "../../request";
+import { DocumentDBModel } from "../../models/document-db";
 
 import {
   DocCount,
-  DocCountResponse,
-  DocDeleteDB,
-  DocDeleteDBResponse,
   DocDelete,
-  DocDeleteResponse,
   DocFind,
-  DocFindResponse,
   DocGet,
-  DocGetResponse,
   DocIndexJson,
-  DocIndexJsonResponse,
-  DocLoadJson,
-  DocLoadJsonResponse,
   DocPut,
-  DocPutResponse,
 } from "../../types/document-db";
 
 type Config = {
@@ -28,7 +18,7 @@ type Config = {
 
 type omit<T> = Omit<T, "pod_name" | "table_name">;
 
-export class DocumentTable extends Request {
+export class DocumentTableClient extends DocumentDBModel {
   public readonly podName: string;
   public readonly tableName: string;
 
@@ -39,7 +29,7 @@ export class DocumentTable extends Request {
   }
 
   countDoc({ expr }: omit<DocCount>) {
-    return this.postRequest<DocCountResponse>("doc/count", {
+    return super.docCount({
       pod_name: this.podName,
       table_name: this.tableName,
       expr,
@@ -47,34 +37,30 @@ export class DocumentTable extends Request {
   }
 
   delete() {
-    return this.deleteRequest<DocDeleteDBResponse>("doc/delete", {
-      data: {
-        pod_name: this.podName,
-        table_name: this.tableName,
-      },
+    return super.docDeleteDB({
+      pod_name: this.podName,
+      table_name: this.tableName,
     });
   }
 
   findDoc({ expr, limit }: omit<DocFind>) {
-    return this.deleteRequest<DocFindResponse>("doc/find", {
-      data: {
-        pod_name: this.podName,
-        table_name: this.tableName,
-        expr,
-        limit,
-      },
+    return super.docFind({
+      pod_name: this.podName,
+      table_name: this.tableName,
+      expr,
+      limit,
     });
   }
 
   loadJson() {
-    return this.postRequest<DocLoadJsonResponse>("doc/loadjson", {
+    return super.docLoadJson({
       pod_name: this.podName,
       table_name: this.tableName,
     });
   }
 
   indexJson({ file }: omit<DocIndexJson>) {
-    return this.postRequest<DocIndexJsonResponse>("doc/indexjson", {
+    return super.docIndexJson({
       pod_name: this.podName,
       table_name: this.tableName,
       file,
@@ -82,7 +68,7 @@ export class DocumentTable extends Request {
   }
 
   putDoc({ doc }: omit<DocPut>) {
-    return this.postRequest<DocPutResponse>("doc/entry/put", {
+    return super.docPut({
       pod_name: this.podName,
       table_name: this.tableName,
       doc,
@@ -90,22 +76,18 @@ export class DocumentTable extends Request {
   }
 
   getDoc({ id }: omit<DocGet>) {
-    return this.getRequest<DocGetResponse>("doc/entry/get", {
-      params: {
-        pod_name: this.podName,
-        table_name: this.tableName,
-        id,
-      },
+    return super.docGet({
+      pod_name: this.podName,
+      table_name: this.tableName,
+      id,
     });
   }
 
   deleteDoc({ id }: omit<DocDelete>) {
-    return this.deleteRequest<DocDeleteResponse>("doc/entry/del", {
-      data: {
-        pod_name: this.podName,
-        table_name: this.tableName,
-        id,
-      },
+    return super.docDelete({
+      pod_name: this.podName,
+      table_name: this.tableName,
+      id,
     });
   }
 }

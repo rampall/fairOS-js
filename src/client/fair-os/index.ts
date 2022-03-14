@@ -1,92 +1,44 @@
-import { Request } from "../../request";
-import { User as UserClient } from "../user";
-import { User } from "../../models/user";
+import { UserModel } from "../../models/user";
 
 import {
   UserSignUp,
-  UserSignUpResponse,
   UserLogin,
-  UserLoginResponse,
   UserImport,
-  UserImportResponse,
   UserPresent,
-  UserPresentResponse,
   UserLoggedIn,
-  UserLoggedInResponse,
 } from "../../types/user";
 
 type Config = {
   providerUrl: string;
 };
 
-export class FairOS extends User {
+export class FairOSClient extends UserModel {
   constructor(config: Config) {
     super(config);
   }
 
-  async userSignup({ user_name, password, mnemonic }: UserSignUp) {
-    const response = await this.postRequest<UserSignUpResponse>("user/signup", {
-      user_name,
-      password,
-      mnemonic,
-    });
-
-    const user = new User({
-      providerUrl: this.providerUrl,
-      authCookie: response.cookies,
-      username: user_name,
-      address: response.address,
-    });
-
-    return user;
+  userSignup({ user_name, password, mnemonic }: UserSignUp) {
+    return super.userSignup({ user_name, password, mnemonic });
   }
 
-  async userLogin({ user_name, password }: UserLogin) {
-    const response = await this.postRequest<UserLoginResponse>("user/login", {
-      user_name,
-      password,
-    });
-
-    const user = new User({
-      providerUrl: this.providerUrl,
-      authCookie: response.cookies,
-      username: user_name,
-    });
-
-    return user;
+  userLogin({ user_name, password }: UserLogin) {
+    return super.userLogin({ user_name, password });
   }
 
-  async userImport({ user_name, password, address, mnemonic }: UserImport) {
-    const response = await this.postRequest<UserImportResponse>("user/import", {
+  userImport({ user_name, password, address, mnemonic }: UserImport) {
+    return super.userImport({
       user_name,
       password,
       address,
       mnemonic,
     });
-
-    const user = new User({
-      providerUrl: this.providerUrl,
-      authCookie: response.cookies,
-      username: user_name,
-      address: response.address,
-    });
-
-    return user;
   }
 
   userPresent({ user_name }: UserPresent) {
-    return this.getRequest<UserPresentResponse>("user/present", {
-      params: {
-        user_name,
-      },
-    });
+    return super.userPresent({ user_name });
   }
 
   userLoggedIn({ user_name }: UserLoggedIn) {
-    return this.getRequest<UserLoggedInResponse>("user/isloggedin", {
-      params: {
-        user_name,
-      },
-    });
+    return super.userLoggedIn({ user_name });
   }
 }

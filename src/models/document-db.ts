@@ -28,7 +28,7 @@ import { DocumentTable } from "../client/document-db/table";
 
 const resourceName = "doc";
 
-export class DocumentDB extends Request {
+export class DocumentDBModel extends Request {
   protected async docCreateDB({
     pod_name,
     table_name,

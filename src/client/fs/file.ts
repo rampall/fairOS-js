@@ -1,13 +1,7 @@
-import { Request } from "../../request";
+import { FSModel } from "../../models/fs";
+
 import { join } from "path";
 //TODO: does path exists in js?
-
-import {
-  FSDownloadFileResponse,
-  FSShareFileResponse,
-  FSDeleteFileResponse,
-  FSStatInfoResponse,
-} from "../../types/fs";
 
 type Config = {
   providerUrl: string;
@@ -18,7 +12,7 @@ type Config = {
   reference: string;
 };
 
-export class File extends Request {
+export class FSFileClient extends FSModel {
   public readonly podName: string;
   public readonly podDir: string;
   public readonly fileName: string;
@@ -35,23 +29,21 @@ export class File extends Request {
   }
 
   downloadGet() {
-    return this.getRequest<FSDownloadFileResponse>("file/download", {
-      params: {
-        pod_name: this.podName,
-        file_path: this.filePath,
-      },
+    return super.fsDownloadFileGet({
+      pod_name: this.podName,
+      file_path: this.filePath,
     });
   }
 
   downloadPost() {
-    return this.postRequest<FSDownloadFileResponse>("file/download", {
+    return super.fsDownloadFilePost({
       pod_name: this.podName,
       file_path: this.filePath,
     });
   }
 
   shareFile({ dest_user }: { dest_user: string }) {
-    return this.postRequest<FSShareFileResponse>("file/share", {
+    return super.fsShareFile({
       pod_name: this.podName,
       pod_path_file: this.filePath,
       dest_user,
@@ -59,20 +51,16 @@ export class File extends Request {
   }
 
   delete() {
-    return this.deleteRequest<FSDeleteFileResponse>("file/delete", {
-      params: {
-        pod_name: this.podName,
-        file_path: this.filePath,
-      },
+    return super.fsDeleteFile({
+      pod_name: this.podName,
+      file_path: this.filePath,
     });
   }
 
   stat() {
-    return this.getRequest<FSStatInfoResponse>("file/stat", {
-      params: {
-        pod_name: this.podName,
-        file_path: this.filePath,
-      },
+    return super.fsStatInfo({
+      pod_name: this.podName,
+      file_path: this.filePath,
     });
   }
 }

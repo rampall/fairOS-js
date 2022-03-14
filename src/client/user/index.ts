@@ -24,7 +24,7 @@ type Config = {
   address?: string;
 };
 
-class User extends Request {
+class UserClient extends Request {
   public readonly username: string;
   public readonly address: string | undefined;
 
@@ -71,8 +71,8 @@ class User extends Request {
   }
 }
 
-interface User extends FS, Pod, KVStore, DocumentDB {}
+interface UserClient extends FS, Pod, KVStore, DocumentDB {}
 
-applyMixins(User, [FS, Pod, KVStore, DocumentDB]);
+applyMixins(UserClient, [FS, Pod, KVStore, DocumentDB]);
 
-export { User };
+export { UserClient };
