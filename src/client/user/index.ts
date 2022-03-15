@@ -11,14 +11,14 @@ import { UserDelete } from "../../types/user";
 
 type Config = {
   providerUrl: string;
-  authCookie?: string;
   username: string;
+  authCookie?: string;
   address?: string;
 };
 
 class UserClient extends UserModel {
   public readonly username: string;
-  public readonly address: string | undefined;
+  public readonly address?: string;
 
   constructor(config: Config) {
     super(config);
