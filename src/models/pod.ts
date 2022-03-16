@@ -26,7 +26,16 @@ import {
 
 const resourceName = "pod";
 
+type Config = {
+  providerUrl: string;
+  authCookie?: string;
+};
+
 export class PodModel extends Request {
+  constructor(config: Config) {
+    super(config);
+  }
+
   protected podReceiveInfo({ reference }: PodReceiveInfo) {
     return this.getRequest<PodReceiveInfoResponse>(
       `${resourceName}/receiveinfo`,
@@ -47,17 +56,18 @@ export class PodModel extends Request {
   }
 
   protected async podNew({ pod_name, password }: PodNew) {
-    const response = await this.postRequest<PodNewResponse>(
-      `${resourceName}/new`,
-      {
-        pod_name,
-        password,
-      }
-    );
+    await this.postRequest<PodNewResponse>(`${resourceName}/new`, {
+      pod_name,
+      password,
+    });
+
+    const authCookie = this.axiosInstance.defaults.headers.common[
+      "Cookie"
+    ] as string;
 
     const pod = new PodClient({
       providerUrl: this.providerUrl,
-      authCookie: response.cookies,
+      authCookie,
       name: pod_name,
     });
 
@@ -65,17 +75,18 @@ export class PodModel extends Request {
   }
 
   protected async podOpen({ pod_name, password }: PodOpen) {
-    const response = await this.postRequest<PodOpenResponse>(
-      `${resourceName}/open`,
-      {
-        pod_name,
-        password,
-      }
-    );
+    await this.postRequest<PodOpenResponse>(`${resourceName}/open`, {
+      pod_name,
+      password,
+    });
+
+    const authCookie = this.axiosInstance.defaults.headers.common[
+      "Cookie"
+    ] as string;
 
     const pod = new PodClient({
       providerUrl: this.providerUrl,
-      authCookie: response.cookies,
+      authCookie,
       name: pod_name,
     });
 

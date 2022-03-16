@@ -20,7 +20,16 @@ import {
 
 const resourceName = "user";
 
+type Config = {
+  providerUrl: string;
+  authCookie?: string;
+};
+
 export class UserModel extends Request {
+  constructor(config: Config) {
+    super(config);
+  }
+
   protected async userSignup({ user_name, password, mnemonic }: UserSignUp) {
     const response = await this.postRequest<UserSignUpResponse>(
       `${resourceName}/signup`,
@@ -31,9 +40,13 @@ export class UserModel extends Request {
       }
     );
 
+    const authCookie = this.axiosInstance.defaults.headers.common[
+      "Cookie"
+    ] as string;
+
     const user = new UserClient({
       providerUrl: this.providerUrl,
-      authCookie: response.cookies,
+      authCookie,
       username: user_name,
       address: response.address,
     });
@@ -42,17 +55,18 @@ export class UserModel extends Request {
   }
 
   protected async userLogin({ user_name, password }: UserLogin) {
-    const response = await this.postRequest<UserLoginResponse>(
-      `${resourceName}/login`,
-      {
-        user_name,
-        password,
-      }
-    );
+    await this.postRequest<UserLoginResponse>(`${resourceName}/login`, {
+      user_name,
+      password,
+    });
+
+    const authCookie = this.axiosInstance.defaults.headers.common[
+      "Cookie"
+    ] as string;
 
     const user = new UserClient({
       providerUrl: this.providerUrl,
-      authCookie: response.cookies,
+      authCookie,
       username: user_name,
     });
 
@@ -75,9 +89,13 @@ export class UserModel extends Request {
       }
     );
 
+    const authCookie = this.axiosInstance.defaults.headers.common[
+      "Cookie"
+    ] as string;
+
     const user = new UserClient({
       providerUrl: this.providerUrl,
-      authCookie: response.cookies,
+      authCookie,
       username: user_name,
       address: response.address,
     });

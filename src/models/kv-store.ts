@@ -29,7 +29,16 @@ import {
 
 const resourceName = "kv";
 
+type Config = {
+  providerUrl: string;
+  authCookie?: string;
+};
+
 export class KVStoreModel extends Request {
+  constructor(config: Config) {
+    super(config);
+  }
+
   protected async kvNewTable({ pod_name, table_name, indexType }: KVNewTable) {
     const response = await this.postRequest<KVNewTableResponse>(
       `${resourceName}/new`,
@@ -40,9 +49,13 @@ export class KVStoreModel extends Request {
       }
     );
 
+    const authCookie = this.axiosInstance.defaults.headers.common[
+      "Cookie"
+    ] as string;
+
     const kvTable = new KVTableClient({
       providerUrl: this.providerUrl,
-      authCookie: response.cookies,
+      authCookie,
       podName: pod_name,
       tableName: table_name,
     });
@@ -67,9 +80,13 @@ export class KVStoreModel extends Request {
       }
     );
 
+    const authCookie = this.axiosInstance.defaults.headers.common[
+      "Cookie"
+    ] as string;
+
     const kvTable = new KVTableClient({
       providerUrl: this.providerUrl,
-      authCookie: response.cookies,
+      authCookie,
       podName: pod_name,
       tableName: table_name,
     });

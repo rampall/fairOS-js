@@ -27,7 +27,16 @@ import {
 
 const resourceName = "doc";
 
+type Config = {
+  providerUrl: string;
+  authCookie?: string;
+};
+
 export class DocumentDBModel extends Request {
+  constructor(config: Config) {
+    super(config);
+  }
+
   protected async docCreateDB({
     pod_name,
     table_name,
@@ -44,9 +53,13 @@ export class DocumentDBModel extends Request {
       }
     );
 
+    const authCookie = this.axiosInstance.defaults.headers.common[
+      "Cookie"
+    ] as string;
+
     const docTable = new DocumentTableClient({
       providerUrl: this.providerUrl,
-      authCookie: response.cookies,
+      authCookie,
       podName: pod_name,
       tableName: table_name,
     });
@@ -71,9 +84,13 @@ export class DocumentDBModel extends Request {
       }
     );
 
+    const authCookie = this.axiosInstance.defaults.headers.common[
+      "Cookie"
+    ] as string;
+
     const docTable = new DocumentTableClient({
       providerUrl: this.providerUrl,
-      authCookie: response.cookies,
+      authCookie,
       podName: pod_name,
       tableName: table_name,
     });

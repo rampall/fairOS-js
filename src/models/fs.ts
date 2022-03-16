@@ -30,7 +30,16 @@ import {
 const dirResourceName = "dir";
 const fileResourceName = "file";
 
+type Config = {
+  providerUrl: string;
+  authCookie?: string;
+};
+
 export class FSModel extends Request {
+  constructor(config: Config) {
+    super(config);
+  }
+
   protected async fsMakeDir({ pod_name, dir_path }: FSMakeDir) {
     const response = await this.postRequest<FSMakeDirResponse>(
       `${dirResourceName}/mkdir`,
@@ -40,9 +49,13 @@ export class FSModel extends Request {
       }
     );
 
+    const authCookie = this.axiosInstance.defaults.headers.common[
+      "Cookie"
+    ] as string;
+
     const dir = new FSDirectoryClient({
       providerUrl: this.providerUrl,
-      authCookie: response.cookies,
+      authCookie,
       podName: pod_name,
       path: dir_path,
     });
@@ -106,9 +119,13 @@ export class FSModel extends Request {
       }
     );
 
+    const authCookie = this.axiosInstance.defaults.headers.common[
+      "Cookie"
+    ] as string;
+
     const file = new FSFileClient({
       providerUrl: this.providerUrl,
-      authCookie: response.cookies,
+      authCookie,
       podName: pod_name,
       podDir: pod_dir,
       fileName: response.file_name,
