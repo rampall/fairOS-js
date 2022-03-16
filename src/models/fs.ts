@@ -1,8 +1,7 @@
-import { Request } from "../request";
-import { FSDirectoryClient } from "../client/fs/directory";
-import { FSFileClient } from "../client/fs/file";
-
 import {
+  Request,
+  FSDirectoryClient,
+  FSFileClient,
   FSDeleteFile,
   FSDeleteFileResponse,
   FSDirPresent,
@@ -26,7 +25,7 @@ import {
   FSStatInfoResponse,
   FSUploadFile,
   FSUploadFileResponse,
-} from "../types/fs";
+} from "../internal";
 
 const dirResourceName = "dir";
 const fileResourceName = "file";

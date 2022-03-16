@@ -11,9 +11,8 @@ import {
   FSStatDir,
   FSStatInfo,
   FSUploadFile,
-} from "../../types/fs";
-
-import { FSModel } from "../../models/fs";
+  FSModel,
+} from "../../internal";
 
 type omit<T> = Omit<T, "pod_name">;
 

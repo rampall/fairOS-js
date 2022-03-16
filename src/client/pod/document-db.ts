@@ -1,6 +1,5 @@
-import { DocumentDBModel } from "../../models/document-db";
-
 import {
+  DocumentDBModel,
   DocCount,
   DocCreateDB,
   DocDeleteDB,
@@ -11,7 +10,7 @@ import {
   DocLoadJson,
   DocOpenDB,
   DocPut,
-} from "../../types/document-db";
+} from "../../internal";
 
 type omit<T> = Omit<T, "pod_name">;
 

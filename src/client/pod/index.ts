@@ -2,9 +2,7 @@ import { PodFS } from "./fs";
 import { PodDocumentDB } from "./document-db";
 import { PodKVStore } from "./kv-store";
 
-import { PodDelete, PodShare } from "../../types/pod";
-import { applyMixins } from "../../utils";
-import { PodModel } from "../../models/pod";
+import { PodModel, PodDelete, PodShare, applyMixins } from "../../internal";
 
 type Config = {
   providerUrl: string;

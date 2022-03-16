@@ -1,7 +1,6 @@
-import { Request } from "../request";
-import { PodClient } from "../client/pod";
-
 import {
+  Request,
+  PodClient,
   PodClose,
   PodCloseResponse,
   PodDelete,
@@ -23,7 +22,7 @@ import {
   PodStatResponse,
   PodSync,
   PodSyncResponse,
-} from "../types/pod";
+} from "../internal";
 
 const resourceName = "pod";
 

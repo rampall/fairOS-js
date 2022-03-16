@@ -1,7 +1,6 @@
-import { Request } from "../request";
-import { UserClient } from "../client/user";
-
 import {
+  UserClient,
+  Request,
   UserSignUp,
   UserSignUpResponse,
   UserLogin,
@@ -17,7 +16,7 @@ import {
   UserDelete,
   UserStatReponse,
   UserDeleteResponse,
-} from "../types/user";
+} from "../internal";
 
 const resourceName = "user";
 

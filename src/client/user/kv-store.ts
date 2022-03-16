@@ -1,5 +1,3 @@
-import { KVStoreModel } from "../../models/kv-store";
-
 import {
   KVNewTable,
   KVOpenTable,
@@ -13,7 +11,8 @@ import {
   KVLoadCSV,
   KVKeyPresent,
   KVListTables,
-} from "../../types/kv-store";
+  KVStoreModel,
+} from "../../internal";
 
 export class UserKVStore extends KVStoreModel {
   async kvNewTable({ pod_name, table_name, indexType }: KVNewTable) {

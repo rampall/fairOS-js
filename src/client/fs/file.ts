@@ -1,4 +1,4 @@
-import { FSModel } from "../../models/fs";
+import { FSModel } from "../../internal";
 
 import { join } from "path";
 //TODO: does path exists in js?

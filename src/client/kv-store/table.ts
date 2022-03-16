@@ -1,13 +1,12 @@
-import { KVStoreModel } from "../../models/kv-store";
-
 import {
+  KVStoreModel,
   KVPutPair,
   KVGetValue,
   KVDeleteValue,
   KVSeekKey,
   KVLoadCSV,
   KVKeyPresent,
-} from "../../types/kv-store";
+} from "../../internal";
 
 type Config = {
   providerUrl: string;

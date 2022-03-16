@@ -11,9 +11,8 @@ import {
   FSStatDir,
   FSStatInfo,
   FSUploadFile,
-} from "../../types/fs";
-
-import { FSModel } from "../../models/fs";
+  FSModel,
+} from "../../internal";
 
 export class UserFS extends FSModel {
   async fsMakeDir({ pod_name, dir_path }: FSMakeDir) {

@@ -1,6 +1,5 @@
-import { KVStoreModel } from "../../models/kv-store";
-
 import {
+  KVStoreModel,
   KVNewTable,
   KVOpenTable,
   KVCountTablePairs,
@@ -12,7 +11,7 @@ import {
   KVGetSeekNext,
   KVLoadCSV,
   KVKeyPresent,
-} from "../../types/kv-store";
+} from "../../internal";
 
 type omit<T> = Omit<T, "pod_name">;
 

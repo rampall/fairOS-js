@@ -1,12 +1,11 @@
-import { UserModel } from "../../models/user";
-
 import {
+  UserModel,
   UserSignUp,
   UserLogin,
   UserImport,
   UserPresent,
   UserLoggedIn,
-} from "../../types/user";
+} from "../../internal";
 
 type Config = {
   providerUrl: string;

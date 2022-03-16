@@ -1,6 +1,5 @@
-import { Request } from "../request";
-
 import {
+  Request,
   DocCount,
   DocCountResponse,
   DocCreateDB,
@@ -23,8 +22,8 @@ import {
   DocOpenDBResponse,
   DocPut,
   DocPutResponse,
-} from "../types/document-db";
-import { DocumentTableClient } from "../client/document-db/table";
+  DocumentTableClient,
+} from "../internal";
 
 const resourceName = "doc";
 

@@ -1,5 +1,3 @@
-import { PodModel } from "../../models/pod";
-
 import {
   PodClose,
   PodDelete,
@@ -11,7 +9,8 @@ import {
   PodShare,
   PodStat,
   PodSync,
-} from "../../types/pod";
+  PodModel,
+} from "../../internal";
 
 export class UserPod extends PodModel {
   podReceiveInfo({ reference }: PodReceiveInfo) {

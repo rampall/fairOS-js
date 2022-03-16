@@ -3,11 +3,7 @@ import { UserFS } from "./fs";
 import { UserKVStore } from "./kv-store";
 import { UserPod } from "./pod";
 
-import { UserModel } from "../../models/user";
-
-import { applyMixins } from "../../utils";
-
-import { UserDelete } from "../../types/user";
+import { UserModel, UserDelete, applyMixins } from "../../internal";
 
 type Config = {
   providerUrl: string;

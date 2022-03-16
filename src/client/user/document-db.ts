@@ -1,6 +1,5 @@
-import { DocumentDBModel } from "../../models/document-db";
-
 import {
+  DocumentDBModel,
   DocCount,
   DocCreateDB,
   DocDeleteDB,
@@ -12,7 +11,7 @@ import {
   DocOpenDB,
   DocPut,
   DocListDBs,
-} from "../../types/document-db";
+} from "../../internal";
 
 export class UserDocumentDB extends DocumentDBModel {
   async docCreateDB({ pod_name, table_name, si, mutable }: DocCreateDB) {

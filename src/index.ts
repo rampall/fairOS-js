@@ -1,11 +1,11 @@
-import { FairOSClient as FairOS } from "./client/fair-os";
+import { FairOSClient as FairOS } from "./internal";
 
-export { UserClient as User } from "./client/user";
-export { FSDirectoryClient as FSDirectory } from "./client/fs/directory";
-export { FSFileClient as FSFile } from "./client/fs/file";
-export { PodClient as Pod } from "./client/pod";
-export { KVTableClient as KVTable } from "./client/kv-store/table";
-export { DocumentTableClient as DocumentTable } from "./client/document-db/table";
+export { UserClient as User } from "./internal";
+export { FSDirectoryClient as FSDirectory } from "./internal";
+export { FSFileClient as FSFile } from "./internal";
+export { PodClient as Pod } from "./internal";
+export { KVTableClient as KVTable } from "./internal";
+export { DocumentTableClient as DocumentTable } from "./internal";
 
 export { FairOS };
 export default FairOS;

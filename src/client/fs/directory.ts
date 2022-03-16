@@ -1,7 +1,11 @@
 import { join } from "path";
 
-import { FSReceiveFile, FSReceiveFileInfo, FSUploadFile } from "../../types/fs";
-import { FSModel } from "../../models/fs";
+import {
+  FSReceiveFile,
+  FSReceiveFileInfo,
+  FSUploadFile,
+  FSModel,
+} from "../../internal";
 
 type Config = {
   providerUrl: string;

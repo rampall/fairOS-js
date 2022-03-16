@@ -1,5 +1,5 @@
-import { Request } from "../request";
 import {
+  Request,
   KVNewTable,
   KVNewTableResponse,
   KVListTables,
@@ -24,8 +24,8 @@ import {
   KVLoadCSVResponse,
   KVKeyPresent,
   KVKeyPresentResponse,
-} from "../types/kv-store";
-import { KVTableClient } from "../client/kv-store/table";
+  KVTableClient,
+} from "../internal";
 
 const resourceName = "kv";
 
