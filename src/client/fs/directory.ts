@@ -64,23 +64,23 @@ export class FSDirectoryClient extends FSModel {
     });
   }
 
-  downloadFileGet({ file_name }: { file_name: string }) {
+  downloadFile({ file_name }: { file_name: string }) {
     const file_path = join(this.path, file_name);
 
-    return super.fsDownloadFileGet({
+    return super.fsDownloadFile({
       pod_name: this.podName,
       file_path,
     });
   }
 
-  downloadFilePost({ file_name }: { file_name: string }) {
-    const file_path = join(this.path, file_name);
+  // downloadFilePost({ file_name }: { file_name: string }) {
+  //   const file_path = join(this.path, file_name);
 
-    return super.fsDownloadFilePost({
-      pod_name: this.podName,
-      file_path,
-    });
-  }
+  //   return super.fsDownloadFilePost({
+  //     pod_name: this.podName,
+  //     file_path,
+  //   });
+  // }
 
   shareFile({
     file_name,

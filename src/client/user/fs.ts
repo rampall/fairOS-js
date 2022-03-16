@@ -56,13 +56,13 @@ export class UserFS extends FSModel {
     });
   }
 
-  fsDownloadFileGet({ pod_name, file_path }: FSDownloadFile) {
-    return super.fsDownloadFileGet({ pod_name, file_path });
+  fsDownloadFile({ pod_name, file_path }: FSDownloadFile) {
+    return super.fsDownloadFile({ pod_name, file_path });
   }
 
-  fsDownloadFilePost({ pod_name, file_path }: FSDownloadFile) {
-    return super.fsDownloadFilePost({ pod_name, file_path });
-  }
+  // fsDownloadFilePost({ pod_name, file_path }: FSDownloadFile) {
+  //   return super.fsDownloadFilePost({ pod_name, file_path });
+  // }
 
   fsShareFile({ pod_name, pod_path_file, dest_user }: FSShareFile) {
     return super.fsShareFile({

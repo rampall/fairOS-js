@@ -164,27 +164,27 @@ export class FSModel extends Request {
     return file;
   }
 
-  protected fsDownloadFileGet({ pod_name, file_path }: FSDownloadFile) {
-    return this.getRequest<FSDownloadFileResponse>(
-      `${fileResourceName}/download`,
-      {
-        params: {
-          pod_name,
-          file_path,
-        },
-      }
-    );
-  }
-
-  protected fsDownloadFilePost({ pod_name, file_path }: FSDownloadFile) {
-    return this.postRequest<FSDownloadFileResponse>(
-      `${fileResourceName}/download`,
-      {
+  //TODO: post download file is broken. says pod_name is required
+  //TODO: handle errors. returned as buffer
+  protected fsDownloadFile({ pod_name, file_path }: FSDownloadFile) {
+    return this.getRequest<Buffer>(`${fileResourceName}/download`, {
+      responseType: "arraybuffer",
+      params: {
         pod_name,
         file_path,
-      }
-    );
+      },
+    });
   }
+
+  // protected fsDownloadFilePost({ pod_name, file_path }: FSDownloadFile) {
+  //   return this.postRequest<FSDownloadFileResponse>(
+  //     `${fileResourceName}/download`,
+  //     {
+  //       pod_name,
+  //       file_path,
+  //     }
+  //   );
+  // }
 
   protected fsShareFile({ pod_name, pod_path_file, dest_user }: FSShareFile) {
     return this.postRequest<FSShareFileResponse>(`${fileResourceName}/share`, {

@@ -58,13 +58,13 @@ export class PodFS extends FSModel {
     });
   }
 
-  downloadFileGet({ file_path }: omit<FSDownloadFile>) {
-    return super.fsDownloadFileGet({ pod_name: this.podName, file_path });
+  downloadFile({ file_path }: omit<FSDownloadFile>) {
+    return super.fsDownloadFile({ pod_name: this.podName, file_path });
   }
 
-  downloadFilePost({ file_path }: omit<FSDownloadFile>) {
-    return super.fsDownloadFilePost({ pod_name: this.podName, file_path });
-  }
+  // downloadFilePost({ file_path }: omit<FSDownloadFile>) {
+  //   return super.fsDownloadFilePost({ pod_name: this.podName, file_path });
+  // }
 
   shareFile({ pod_path_file, dest_user }: omit<FSShareFile>) {
     return super.fsShareFile({

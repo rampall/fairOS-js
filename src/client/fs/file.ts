@@ -28,19 +28,19 @@ export class FSFileClient extends FSModel {
     this.filePath = join(this.podDir, this.fileName);
   }
 
-  downloadGet() {
-    return super.fsDownloadFileGet({
+  download() {
+    return super.fsDownloadFile({
       pod_name: this.podName,
       file_path: this.filePath,
     });
   }
 
-  downloadPost() {
-    return super.fsDownloadFilePost({
-      pod_name: this.podName,
-      file_path: this.filePath,
-    });
-  }
+  // downloadPost() {
+  //   return super.fsDownloadFilePost({
+  //     pod_name: this.podName,
+  //     file_path: this.filePath,
+  //   });
+  // }
 
   shareFile({ dest_user }: { dest_user: string }) {
     return super.fsShareFile({
