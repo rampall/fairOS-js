@@ -7,6 +7,11 @@ export interface FSMakeDir {
   dir_path: string;
 }
 
+export interface FSOpenDir {
+  pod_name: string;
+  dir_path: string;
+}
+
 export interface FSMakeDirResponse extends BaseResponse {}
 
 export interface FSRemoveDir {

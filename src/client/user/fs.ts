@@ -12,11 +12,16 @@ import {
   FSStatInfo,
   FSUploadFile,
   FSModel,
+  FSOpenDir,
 } from "../../internal";
 
 export class UserFS extends FSModel {
   async fsMakeDir({ pod_name, dir_path }: FSMakeDir) {
     return super.fsMakeDir({ pod_name, dir_path });
+  }
+
+  fsOpenDir({ pod_name, dir_path }: FSOpenDir) {
+    return super.fsOpenDir({ pod_name, dir_path });
   }
 
   fsRemoveDir({ pod_name, dir_path }: FSRemoveDir) {

@@ -25,6 +25,7 @@ import {
   FSStatInfoResponse,
   FSUploadFile,
   FSUploadFileResponse,
+  FSOpenDir,
 } from "../internal";
 
 const dirResourceName = "dir";
@@ -49,6 +50,21 @@ export class FSModel extends Request {
       }
     );
 
+    const authCookie = this.axiosInstance.defaults.headers.common[
+      "Cookie"
+    ] as string;
+
+    const dir = new FSDirectoryClient({
+      providerUrl: this.providerUrl,
+      authCookie,
+      podName: pod_name,
+      path: dir_path,
+    });
+
+    return dir;
+  }
+
+  protected fsOpenDir({ pod_name, dir_path }: FSOpenDir) {
     const authCookie = this.axiosInstance.defaults.headers.common[
       "Cookie"
     ] as string;

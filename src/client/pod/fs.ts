@@ -23,6 +23,10 @@ export class PodFS extends FSModel {
     return super.fsMakeDir({ pod_name: this.podName, dir_path });
   }
 
+  openDir({ dir_path }: omit<FSMakeDir>) {
+    return super.fsOpenDir({ pod_name: this.podName, dir_path });
+  }
+
   removeDir({ dir_path }: omit<FSRemoveDir>) {
     return super.fsRemoveDir({ pod_name: this.podName, dir_path });
   }
