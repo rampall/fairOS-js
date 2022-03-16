@@ -28,7 +28,7 @@ const resourceName = "pod";
 
 type Config = {
   providerUrl: string;
-  authCookie?: string;
+  cookies?: string;
 };
 
 export class PodModel extends Request {
@@ -61,13 +61,13 @@ export class PodModel extends Request {
       password,
     });
 
-    const authCookie = this.axiosInstance.defaults.headers.common[
+    const cookies = this.axiosInstance.defaults.headers.common[
       "Cookie"
     ] as string;
 
     const pod = new PodClient({
       providerUrl: this.providerUrl,
-      authCookie,
+      cookies,
       name: pod_name,
     });
 
@@ -81,13 +81,13 @@ export class PodModel extends Request {
       password,
     });
 
-    const authCookie = this.axiosInstance.defaults.headers.common[
+    const cookies = this.axiosInstance.defaults.headers.common[
       "Cookie"
     ] as string;
 
     const pod = new PodClient({
       providerUrl: this.providerUrl,
-      authCookie,
+      cookies,
       name: pod_name,
     });
 

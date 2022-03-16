@@ -10,7 +10,7 @@ import {
 
 type Config = {
   providerUrl: string;
-  authCookie?: string;
+  cookies?: string;
   podName: string;
   tableName: string;
 };

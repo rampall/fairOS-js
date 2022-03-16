@@ -36,7 +36,7 @@ const fileResourceName = "file";
 
 type Config = {
   providerUrl: string;
-  authCookie?: string;
+  cookies?: string;
 };
 
 export class FSModel extends Request {
@@ -53,13 +53,13 @@ export class FSModel extends Request {
       }
     );
 
-    const authCookie = this.axiosInstance.defaults.headers.common[
+    const cookies = this.axiosInstance.defaults.headers.common[
       "Cookie"
     ] as string;
 
     const dir = new FSDirectoryClient({
       providerUrl: this.providerUrl,
-      authCookie,
+      cookies,
       podName: pod_name,
       path: dir_path,
     });
@@ -68,13 +68,13 @@ export class FSModel extends Request {
   }
 
   protected fsOpenDir({ pod_name, dir_path }: FSOpenDir) {
-    const authCookie = this.axiosInstance.defaults.headers.common[
+    const cookies = this.axiosInstance.defaults.headers.common[
       "Cookie"
     ] as string;
 
     const dir = new FSDirectoryClient({
       providerUrl: this.providerUrl,
-      authCookie,
+      cookies,
       podName: pod_name,
       path: dir_path,
     });
@@ -148,13 +148,13 @@ export class FSModel extends Request {
       }
     );
 
-    const authCookie = this.axiosInstance.defaults.headers.common[
+    const cookies = this.axiosInstance.defaults.headers.common[
       "Cookie"
     ] as string;
 
     const file = new FSFileClient({
       providerUrl: this.providerUrl,
-      authCookie,
+      cookies,
       podName: pod_name,
       podDir: pod_dir,
       fileName: response["Responses"][0].file_name,

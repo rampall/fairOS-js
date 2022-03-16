@@ -6,7 +6,7 @@ import { PodModel, PodDelete, PodShare, applyMixins } from "../../internal";
 
 type Config = {
   providerUrl: string;
-  authCookie?: string;
+  cookies?: string;
   name: string;
 };
 

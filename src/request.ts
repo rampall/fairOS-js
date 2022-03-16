@@ -2,14 +2,14 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
 type Config = {
   providerUrl: string;
-  authCookie?: string;
+  cookies?: string;
 };
 
 export abstract class Request {
   protected axiosInstance: AxiosInstance;
   public readonly providerUrl: string;
 
-  constructor({ providerUrl, authCookie = "" }: Config) {
+  constructor({ providerUrl, cookies = "" }: Config) {
     this.axiosInstance = axios.create({
       withCredentials: true,
       baseURL: providerUrl,
@@ -17,7 +17,7 @@ export abstract class Request {
         "Content-type": "application/json",
       },
     });
-    this.axiosInstance.defaults.headers.common["Cookie"] = authCookie;
+    this.axiosInstance.defaults.headers.common["Cookie"] = cookies;
     this.providerUrl = providerUrl;
   }
 

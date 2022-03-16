@@ -5,7 +5,7 @@ import { join } from "path";
 
 type Config = {
   providerUrl: string;
-  authCookie?: string;
+  cookies?: string;
   podName: string;
   podDir: string;
   fileName: string;

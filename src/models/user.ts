@@ -22,7 +22,7 @@ const resourceName = "user";
 
 type Config = {
   providerUrl: string;
-  authCookie?: string;
+  cookies?: string;
 };
 
 export class UserModel extends Request {
@@ -40,13 +40,13 @@ export class UserModel extends Request {
       }
     );
 
-    const authCookie = this.axiosInstance.defaults.headers.common[
+    const cookies = this.axiosInstance.defaults.headers.common[
       "Cookie"
     ] as string;
 
     const user = new UserClient({
       providerUrl: this.providerUrl,
-      authCookie,
+      cookies,
       username: user_name,
       address: response.address,
     });
@@ -60,13 +60,13 @@ export class UserModel extends Request {
       password,
     });
 
-    const authCookie = this.axiosInstance.defaults.headers.common[
+    const cookies = this.axiosInstance.defaults.headers.common[
       "Cookie"
     ] as string;
 
     const user = new UserClient({
       providerUrl: this.providerUrl,
-      authCookie,
+      cookies,
       username: user_name,
     });
 
@@ -89,13 +89,13 @@ export class UserModel extends Request {
       }
     );
 
-    const authCookie = this.axiosInstance.defaults.headers.common[
+    const cookies = this.axiosInstance.defaults.headers.common[
       "Cookie"
     ] as string;
 
     const user = new UserClient({
       providerUrl: this.providerUrl,
-      authCookie,
+      cookies,
       username: user_name,
       address: response.address,
     });

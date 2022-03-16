@@ -8,7 +8,7 @@ import { UserModel, UserDelete, applyMixins } from "../../internal";
 type Config = {
   providerUrl: string;
   username: string;
-  authCookie?: string;
+  cookies?: string;
   address?: string;
 };
 

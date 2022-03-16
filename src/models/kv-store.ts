@@ -31,7 +31,7 @@ const resourceName = "kv";
 
 type Config = {
   providerUrl: string;
-  authCookie?: string;
+  cookies?: string;
 };
 
 export class KVStoreModel extends Request {
@@ -49,13 +49,13 @@ export class KVStoreModel extends Request {
       }
     );
 
-    const authCookie = this.axiosInstance.defaults.headers.common[
+    const cookies = this.axiosInstance.defaults.headers.common[
       "Cookie"
     ] as string;
 
     const kvTable = new KVTableClient({
       providerUrl: this.providerUrl,
-      authCookie,
+      cookies,
       podName: pod_name,
       tableName: table_name,
     });
@@ -80,13 +80,13 @@ export class KVStoreModel extends Request {
       }
     );
 
-    const authCookie = this.axiosInstance.defaults.headers.common[
+    const cookies = this.axiosInstance.defaults.headers.common[
       "Cookie"
     ] as string;
 
     const kvTable = new KVTableClient({
       providerUrl: this.providerUrl,
-      authCookie,
+      cookies,
       podName: pod_name,
       tableName: table_name,
     });
