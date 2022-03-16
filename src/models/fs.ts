@@ -1,3 +1,6 @@
+import * as FormData from "form-data";
+import { readFileSync } from "fs";
+
 import {
   Request,
   FSDirectoryClient,
@@ -115,22 +118,32 @@ export class FSModel extends Request {
     });
   }
 
+  //TODO: dir_path in real but pod_dir in doc
+  //TODO: response type is different from doc
   protected async fsUploadFile({
+    local_path,
     dfs_compression,
     pod_name,
     pod_dir,
     block_size,
   }: FSUploadFile) {
+    const form = new FormData();
+    form.append("pod_name", pod_name);
+    form.append("dir_path", pod_dir);
+    form.append("block_size", block_size);
+
+    const fileName = local_path.split("/").pop();
+    const fileBuffer = readFileSync(local_path);
+
+    form.append("files", fileBuffer, fileName);
+
     const response = await this.postRequest<FSUploadFileResponse>(
       `${fileResourceName}/upload`,
-      {
-        pod_name,
-        pod_dir,
-        block_size,
-      },
+      form,
       {
         headers: {
           "fairOS-dfs-Compression": dfs_compression,
+          ...form.getHeaders(),
         },
       }
     );
@@ -144,8 +157,8 @@ export class FSModel extends Request {
       authCookie,
       podName: pod_name,
       podDir: pod_dir,
-      fileName: response.file_name,
-      reference: response.reference,
+      fileName: response["Responses"][0].file_name,
+      reference: response["Responses"][0].reference,
     });
 
     return file;

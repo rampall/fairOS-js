@@ -74,6 +74,7 @@ export class PodModel extends Request {
     return pod;
   }
 
+  //TODO: api don't send cookie back
   protected async podOpen({ pod_name, password }: PodOpen) {
     await this.postRequest<PodOpenResponse>(`${resourceName}/open`, {
       pod_name,

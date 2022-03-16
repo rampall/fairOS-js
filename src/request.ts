@@ -34,10 +34,7 @@ export abstract class Request {
         const cookies = response.headers["set-cookie"];
         this.setCookies(cookies);
 
-        return {
-          ...response.data,
-          cookies: cookies ? cookies[0] : undefined,
-        };
+        return response.data;
       })
       .catch((error) => {
         throw error;
@@ -55,10 +52,7 @@ export abstract class Request {
         const cookies = response.headers["set-cookie"];
         this.setCookies(cookies);
 
-        return {
-          ...response.data,
-          cookies: cookies ? cookies[0] : undefined,
-        };
+        return response.data;
       })
       .catch((error) => {
         throw error;
@@ -75,10 +69,7 @@ export abstract class Request {
         const cookies = response.headers["set-cookie"];
         this.setCookies(cookies);
 
-        return {
-          ...response.data,
-          cookies: cookies ? cookies[0] : undefined,
-        };
+        return response.data;
       })
       .catch((error) => {
         throw error;

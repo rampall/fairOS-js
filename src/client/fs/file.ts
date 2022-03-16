@@ -9,14 +9,14 @@ type Config = {
   podName: string;
   podDir: string;
   fileName: string;
-  reference: string;
+  reference?: string;
 };
 
 export class FSFileClient extends FSModel {
   public readonly podName: string;
   public readonly podDir: string;
   public readonly fileName: string;
-  public readonly reference: string;
+  public readonly reference?: string;
   public readonly filePath: string;
 
   constructor(config: Config) {

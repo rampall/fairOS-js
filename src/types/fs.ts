@@ -59,6 +59,7 @@ export interface FSDirStatResponse {
 }
 
 export interface FSUploadFile {
+  local_path: string;
   pod_name: string;
   pod_dir: string;
   block_size: string;
@@ -66,9 +67,12 @@ export interface FSUploadFile {
 }
 
 export interface FSUploadFileResponse {
-  file_name: string;
-  reference: string;
-  error: string;
+  Responses: {
+    file_name: string;
+    message: string;
+    reference?: string;
+    error?: string;
+  }[];
 }
 
 export interface FSDownloadFile {

@@ -44,11 +44,13 @@ export class PodFS extends FSModel {
   }
 
   async uploadFile({
+    local_path,
     dfs_compression,
     pod_dir,
     block_size,
   }: omit<FSUploadFile>) {
     return super.fsUploadFile({
+      local_path,
       pod_name: this.podName,
       pod_dir,
       dfs_compression,
