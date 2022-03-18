@@ -25,6 +25,16 @@ export type UserImport = {
   mnemonic?: string;
 };
 
+//TODO: handle UserImport type properly
+// } & (
+//   | {
+//       address: string;
+//     }
+//   | {
+//       mnemonic: string;
+//     }
+// );
+
 export interface UserImportResponse {
   address: string;
 }
