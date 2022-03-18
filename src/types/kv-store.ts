@@ -15,7 +15,6 @@ export interface KVListTables {
   pod_name: string;
 }
 
-//TODO: response is different from docs
 export interface KVListTablesResponse {
   Tables: {
     table_name: string;
@@ -65,7 +64,7 @@ export interface KVGetValue {
 }
 
 export interface KVGetValueResponse {
-  keys: [string];
+  keys: string[];
   values: string;
 }
 

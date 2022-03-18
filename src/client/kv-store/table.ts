@@ -57,7 +57,6 @@ export class KVTableClient extends KVStoreModel {
     });
   }
 
-  //TODO: response type different than docs
   getValue({ key, format }: omit<KVGetValue>) {
     return super.kvGetValue({
       pod_name: this.podName,

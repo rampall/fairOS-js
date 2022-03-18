@@ -26,8 +26,6 @@ export interface FSListDir {
   dir_path: string;
 }
 
-//TODO: content_type is not available in docs
-//TODO: size type is string but in docs it is integer
 export interface FSListResponse {
   dirs?: {
     name: string;

@@ -118,8 +118,6 @@ export class FSModel extends Request {
     });
   }
 
-  //TODO: dir_path in real but pod_dir in doc
-  //TODO: response type is different from doc
   protected async fsUploadFile({
     local_path,
     dfs_compression,
@@ -164,8 +162,6 @@ export class FSModel extends Request {
     return file;
   }
 
-  //TODO: post download file is broken. says pod_name is required
-  //TODO: handle errors. returned as buffer
   protected fsDownloadFile({ pod_name, file_path }: FSDownloadFile) {
     return this.getRequest<Buffer>(`${fileResourceName}/download`, {
       responseType: "arraybuffer",

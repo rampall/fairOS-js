@@ -65,7 +65,6 @@ export interface PodListResponse {
   shared_pod_name: string[];
 }
 
-//TODO: documentation says it is body
 export interface PodStat {
   pod_name: string;
 }
