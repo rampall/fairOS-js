@@ -5,6 +5,8 @@ type Config = {
   cookies?: string;
 };
 
+//TODO: set request timeout option
+
 export abstract class Request {
   protected axiosInstance: AxiosInstance;
   public readonly providerUrl: string;

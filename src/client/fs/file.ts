@@ -35,14 +35,7 @@ export class FSFileClient extends FSModel {
     });
   }
 
-  // downloadPost() {
-  //   return super.fsDownloadFilePost({
-  //     pod_name: this.podName,
-  //     file_path: this.filePath,
-  //   });
-  // }
-
-  shareFile({ dest_user }: { dest_user: string }) {
+  share({ dest_user }: { dest_user: string }) {
     return super.fsShareFile({
       pod_name: this.podName,
       pod_path_file: this.filePath,

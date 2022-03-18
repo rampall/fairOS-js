@@ -67,12 +67,8 @@ export interface KVGetValue {
 }
 
 export interface KVGetValueResponse {
-  keys: {
-    key: string;
-  }[];
-  values: {
-    value: string;
-  }[];
+  keys: [string];
+  values: string;
 }
 
 export interface KVDeleteValue {

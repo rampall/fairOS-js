@@ -73,15 +73,6 @@ export class FSDirectoryClient extends FSModel {
     });
   }
 
-  // downloadFilePost({ file_name }: { file_name: string }) {
-  //   const file_path = join(this.path, file_name);
-
-  //   return super.fsDownloadFilePost({
-  //     pod_name: this.podName,
-  //     file_path,
-  //   });
-  // }
-
   shareFile({
     file_name,
     dest_user,

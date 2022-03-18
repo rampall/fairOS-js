@@ -122,15 +122,11 @@ export class KVStoreModel extends Request {
     });
   }
 
-  //TODO: do we need both endpoints?
-  protected kvGetValue({
-    pod_name,
-    table_name,
-    key,
-    format = "string",
-  }: KVGetValue) {
+  protected kvGetValue({ pod_name, table_name, key, format }: KVGetValue) {
+    const resourcePath = format ? "get-data" : "get";
+
     return this.getRequest<KVGetValueResponse>(
-      `${resourceName}/entry/get-data`,
+      `${resourceName}/entry/${resourcePath}`,
       {
         params: {
           pod_name,

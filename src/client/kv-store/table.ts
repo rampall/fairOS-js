@@ -27,6 +27,13 @@ export class KVTableClient extends KVStoreModel {
     this.tableName = config.tableName;
   }
 
+  open() {
+    return super.kvOpenTable({
+      pod_name: this.podName,
+      table_name: this.tableName,
+    });
+  }
+
   countPairs() {
     return super.kvCountTablePairs({
       pod_name: this.podName,
@@ -50,8 +57,8 @@ export class KVTableClient extends KVStoreModel {
     });
   }
 
-  //TODO: do we need both endpoints?
-  getValue({ key, format = "string" }: omit<KVGetValue>) {
+  //TODO: response type different than docs
+  getValue({ key, format }: omit<KVGetValue>) {
     return super.kvGetValue({
       pod_name: this.podName,
       table_name: this.tableName,

@@ -57,8 +57,7 @@ export class UserKVStore extends KVStoreModel {
     });
   }
 
-  //TODO: do we need both endpoints?
-  kvGetValue({ pod_name, table_name, key, format = "string" }: KVGetValue) {
+  kvGetValue({ pod_name, table_name, key, format }: KVGetValue) {
     return super.kvGetValue({
       pod_name,
       table_name,
