@@ -176,16 +176,6 @@ export class FSModel extends Request {
     });
   }
 
-  // protected fsDownloadFilePost({ pod_name, file_path }: FSDownloadFile) {
-  //   return this.postRequest<FSDownloadFileResponse>(
-  //     `${fileResourceName}/download`,
-  //     {
-  //       pod_name,
-  //       file_path,
-  //     }
-  //   );
-  // }
-
   protected fsShareFile({ pod_name, pod_path_file, dest_user }: FSShareFile) {
     return this.postRequest<FSShareFileResponse>(`${fileResourceName}/share`, {
       pod_name,

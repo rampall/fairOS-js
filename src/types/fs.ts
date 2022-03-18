@@ -26,10 +26,27 @@ export interface FSListDir {
   dir_path: string;
 }
 
-//TODO: implement this
+//TODO: content_type is not available in docs
+//TODO: size type is string but in docs it is integer
 export interface FSListResponse {
-  dirs: {};
-  files: {};
+  dirs?: {
+    name: string;
+    type?: string;
+    size?: string;
+    content_type?: string;
+    creation_time: string;
+    modification_time: string;
+    access_time: string;
+  }[];
+  files: {
+    name: string;
+    type?: string;
+    size: string;
+    block_size: string;
+    creation_time: string;
+    modification_time: string;
+    access_time: string;
+  }[];
 }
 
 export interface FSStatDir {
@@ -121,7 +138,6 @@ export interface FSReceiveFileInfoResponse {
   shared_time: string;
 }
 
-//TODO: delete a file not delete info
 export interface FSDeleteFile {
   pod_name: string;
   file_path: string;
@@ -129,7 +145,6 @@ export interface FSDeleteFile {
 
 export interface FSDeleteFileResponse extends BaseResponse {}
 
-//TODO: good name?
 export interface FSStatInfo {
   pod_name: string;
   file_path: string;

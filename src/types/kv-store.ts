@@ -15,15 +15,14 @@ export interface KVListTables {
   pod_name: string;
 }
 
-//TODO: is it correct?
-
-export interface KVListTableItem {
-  table_name: string;
-  indexes: any;
-  type: KVIndexType;
+//TODO: response is different from docs
+export interface KVListTablesResponse {
+  Tables: {
+    table_name: string;
+    indexes: string[];
+    type: KVIndexType;
+  }[];
 }
-
-export interface KVListTablesResponse extends Array<KVListTableItem> {}
 
 export interface KVOpenTable {
   pod_name: string;
@@ -58,7 +57,6 @@ export interface KVPutPair {
 
 export interface KVPutPairResponse extends BaseResponse {}
 
-//TODO: is it good?
 export interface KVGetValue {
   pod_name: string;
   table_name: string;

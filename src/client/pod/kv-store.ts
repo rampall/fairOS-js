@@ -60,7 +60,6 @@ export class PodKVStore extends KVStoreModel {
     });
   }
 
-  //TODO: do we need both endpoints?
   kvGetValue({ table_name, key, format }: omit<KVGetValue>) {
     return super.kvGetValue({
       pod_name: this.podName,

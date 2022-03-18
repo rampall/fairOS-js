@@ -17,18 +17,22 @@ describe("User", () => {
         password: "123456",
       });
 
-      const kvTable = await pod.kvOpenTable({
-        table_name: "test2_kv_table",
-      });
+      const kvTables = await pod.kvListTables();
 
-      await kvTable.putPair({ key: "test2", value: "12345" });
+      console.log(kvTables.Tables[1]);
 
-      const pair = await kvTable.getValue({
-        key: "test2",
-        format: "byte-string",
-      });
+      // await fsDir.uploadFile({
+      //   local_path: "/home/soheil/Downloads/soheil.png",
+      //   block_size: "1Mb",
+      //   dfs_compression: "gzip",
+      // });
 
-      console.log(pair);
+      // const fsDirParent = pod.openDir({ dir_path: "/test" });
+      // const fsDir = await fsDirParent.makeDir({ dir_name: "test3" });
+
+      // const ls = await fsDirParent.ls();
+
+      // console.log(ls);
     } catch (err) {
       console.log(err);
     }

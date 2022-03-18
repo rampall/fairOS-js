@@ -3,7 +3,7 @@ import { BaseResponse } from "./base";
 export interface UserSignUp {
   user_name: string;
   password: string;
-  mnemonic?: string; //TODO: maybe mnemonic type.
+  mnemonic?: string;
 }
 
 export type UserSignUpResponse = {
@@ -18,7 +18,6 @@ export interface UserLogin {
 
 export interface UserLoginResponse extends BaseResponse {}
 
-//TODO: Fix this. address and mnemonic
 export type UserImport = {
   user_name: string;
   password: string;
@@ -59,7 +58,6 @@ export interface UserDelete {
 
 export interface UserDeleteResponse extends BaseResponse {}
 
-//TODO: reference or address
 export interface UserStatReponse {
   user_name: string;
   reference?: string;

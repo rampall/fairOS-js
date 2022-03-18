@@ -26,6 +26,21 @@ export class FSDirectoryClient extends FSModel {
     this.podName = config.podName;
   }
 
+  makeDir({ dir_name }: { dir_name: string }) {
+    const dir_path = join(this.path, dir_name);
+    return super.fsMakeDir({ pod_name: this.podName, dir_path });
+  }
+
+  openDir({ dir_name }: { dir_name: string }) {
+    const dir_path = join(this.path, dir_name);
+    return super.fsOpenDir({ pod_name: this.podName, dir_path });
+  }
+
+  removeDir({ dir_name }: { dir_name: string }) {
+    const dir_path = join(this.path, dir_name);
+    return super.fsRemoveDir({ pod_name: this.podName, dir_path });
+  }
+
   remove() {
     return super.fsRemoveDir({
       pod_name: this.podName,
