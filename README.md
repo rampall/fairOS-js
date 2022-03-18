@@ -10,6 +10,12 @@ API Client for FairOS API written in Typescript
 
 
 
+## Documentation
+
+browse [Documentation](https://soheil555.github.io/fairOS-js).
+
+
+
 ## Installation
 
 ```bash
