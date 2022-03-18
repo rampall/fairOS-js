@@ -9,7 +9,7 @@
     "build": "run-s _clear _tsc _make-bundle",
     "test": "jest",
     "test:watch": "jest --watch",
-    "doc": "typedoc --out docs src/index.ts",
+    "doc": "typedoc --excludeProtected --out docs src/index.ts",
     "generate": "openapi --input ./swagger.json --output ./generated --client axios"
   },
   "files": [
