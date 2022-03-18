@@ -74,7 +74,7 @@ export interface FSDirStatResponse {
 }
 
 export interface FSUploadFile {
-  local_path: string;
+  file_path: string;
   pod_name: string;
   pod_dir: string;
   block_size: string;

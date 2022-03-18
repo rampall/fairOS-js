@@ -119,7 +119,7 @@ export class FSModel extends Request {
   }
 
   protected async fsUploadFile({
-    local_path,
+    file_path,
     dfs_compression,
     pod_name,
     pod_dir,
@@ -130,8 +130,8 @@ export class FSModel extends Request {
     form.append("dir_path", pod_dir);
     form.append("block_size", block_size);
 
-    const fileName = local_path.split("/").pop();
-    const fileBuffer = readFileSync(local_path);
+    const fileName = file_path.split("/").pop();
+    const fileBuffer = readFileSync(file_path);
 
     form.append("files", fileBuffer, fileName);
 
