@@ -74,6 +74,60 @@ const file = await dir.uploadFile({
 
 
 
+You can directly import User, FSDirectory, FSFile, Pod, KVTable and DocumentTable but using them requires you to set cookies.
+
+For example:
+
+```typescript
+import {
+  FairOS,
+  User,
+  FSDirectory,
+  FSFile,
+  Pod,
+  KVTable,
+  DocumentTable,
+} from "fairos-js";
+
+
+const pod = new Pod({
+    providerUrl: "https://fairos.fairdatasociety.org/v1",
+    name: "test_pod",
+    cookies: "fairOS-dfs=MTYxMjUwNDI5NnxSMmFYcUphY...."
+  });
+
+const table = await pod.docCreateDB({
+    table_name: "test_table",
+    si: "first_name=string",
+    mutable: true,
+});
+
+await table.open();
+
+const result = await pod.docCount({
+    table_name: "test_table",
+});
+console.log(result.message);
+```
+
+
+
+
+
+## Testing
+
+```bash
+cp .env.example .env
+```
+
+Set `FAIROS_API` on `.env` file.
+
+```bash
+npm run test
+```
+
+
+
 ## License
 
 Available under the MIT license. See the `LICENSE` file for more info.

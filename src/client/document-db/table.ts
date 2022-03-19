@@ -29,6 +29,16 @@ export class DocumentTableClient extends DocumentDBModel {
   }
 
   /**
+   * Open then current documentDB
+   */
+  open() {
+    return super.docOpenDB({
+      pod_name: this.podName,
+      table_name: this.tableName,
+    });
+  }
+
+  /**
    * Count all the documents based on the expression
    */
   countDoc({ expr }: omit<DocCount>) {
