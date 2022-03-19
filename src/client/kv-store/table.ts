@@ -27,6 +27,9 @@ export class KVTableClient extends KVStoreModel {
     this.tableName = config.tableName;
   }
 
+  /**
+   * Opens the key value table
+   */
   open() {
     return super.kvOpenTable({
       pod_name: this.podName,
@@ -34,6 +37,9 @@ export class KVTableClient extends KVStoreModel {
     });
   }
 
+  /**
+   * Count KV pairs in the table
+   */
   countPairs() {
     return super.kvCountTablePairs({
       pod_name: this.podName,
@@ -41,6 +47,9 @@ export class KVTableClient extends KVStoreModel {
     });
   }
 
+  /**
+   * Delete the KV table of the pod
+   */
   delete() {
     return super.kvDeleteTable({
       pod_name: this.podName,
@@ -48,6 +57,9 @@ export class KVTableClient extends KVStoreModel {
     });
   }
 
+  /**
+   * Inserts a Key Value pair in the table
+   */
   putPair({ key, value }: omit<KVPutPair>) {
     return super.kvPutPair({
       pod_name: this.podName,
@@ -57,6 +69,9 @@ export class KVTableClient extends KVStoreModel {
     });
   }
 
+  /**
+   * Get value given a key
+   */
   getValue({ key, format }: omit<KVGetValue>) {
     return super.kvGetValue({
       pod_name: this.podName,
@@ -66,6 +81,9 @@ export class KVTableClient extends KVStoreModel {
     });
   }
 
+  /**
+   * Delete a KV pair given a key
+   */
   deleteValue({ key }: omit<KVDeleteValue>) {
     return super.kvDeleteValue({
       pod_name: this.podName,
@@ -74,6 +92,9 @@ export class KVTableClient extends KVStoreModel {
     });
   }
 
+  /**
+   * Seek a KV pair given a key or its prefix
+   */
   seekKey({ start, end, limit }: omit<KVSeekKey>) {
     return super.kvSeekKey({
       pod_name: this.podName,
@@ -84,6 +105,9 @@ export class KVTableClient extends KVStoreModel {
     });
   }
 
+  /**
+   * Get Next value after the Seek
+   */
   getSeekNext() {
     return super.kvGetSeekNext({
       pod_name: this.podName,
@@ -91,6 +115,9 @@ export class KVTableClient extends KVStoreModel {
     });
   }
 
+  /**
+   * load a csv file in to the KV table
+   */
   loadCSV({ file_buffer, file_name, memory }: omit<KVLoadCSV>) {
     return super.kvLoadCSV({
       pod_name: this.podName,
@@ -101,6 +128,9 @@ export class KVTableClient extends KVStoreModel {
     });
   }
 
+  /**
+   * Is Key present
+   */
   isKeyPresent({ key }: omit<KVKeyPresent>) {
     return super.kvKeyPresent({
       pod_name: this.podName,

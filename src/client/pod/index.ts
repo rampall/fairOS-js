@@ -20,18 +20,27 @@ class PodClient extends PodModel {
     this.podName = config.name;
   }
 
+  /**
+   * Closes the pod
+   */
   close() {
     return super.podClose({
       pod_name: this.podName,
     });
   }
 
+  /**
+   * Syncs the latest contents of the pod from Swarm
+   */
   sync() {
     return super.podSync({
       pod_name: this.podName,
     });
   }
 
+  /**
+   * Shared the pod
+   */
   share({ password }: omit<PodShare>) {
     return super.podShare({
       pod_name: this.podName,
@@ -39,6 +48,9 @@ class PodClient extends PodModel {
     });
   }
 
+  /**
+   * Deletes the pod
+   */
   delete({ password }: omit<PodDelete>) {
     return super.podDelete({
       pod_name: this.podName,
@@ -46,12 +58,18 @@ class PodClient extends PodModel {
     });
   }
 
+  /**
+   * Show all the information about the pod
+   */
   stat() {
     return super.podStat({
       pod_name: this.podName,
     });
   }
 
+  /**
+   * Is the Pod present
+   */
   isPresent() {
     return super.podPresent({
       pod_name: this.podName,

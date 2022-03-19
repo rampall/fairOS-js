@@ -28,6 +28,9 @@ export class DocumentTableClient extends DocumentDBModel {
     this.tableName = config.tableName;
   }
 
+  /**
+   * Count all the documents based on the expression
+   */
   countDoc({ expr }: omit<DocCount>) {
     return super.docCount({
       pod_name: this.podName,
@@ -36,6 +39,9 @@ export class DocumentTableClient extends DocumentDBModel {
     });
   }
 
+  /**
+   * Delete the document DB and all its documents and indexes
+   */
   delete() {
     return super.docDeleteDB({
       pod_name: this.podName,
@@ -43,6 +49,9 @@ export class DocumentTableClient extends DocumentDBModel {
     });
   }
 
+  /**
+   * Find documents from the DB based on a expression
+   */
   findDoc({ expr, limit }: omit<DocFind>) {
     return super.docFind({
       pod_name: this.podName,
@@ -52,6 +61,9 @@ export class DocumentTableClient extends DocumentDBModel {
     });
   }
 
+  /**
+   * load a json file in to the documentDB
+   */
   loadJson({ file_buffer, file_name }: omit<DocLoadJson>) {
     return super.docLoadJson({
       pod_name: this.podName,
@@ -61,6 +73,9 @@ export class DocumentTableClient extends DocumentDBModel {
     });
   }
 
+  /**
+   * Index the json file present in the pod
+   */
   indexJson({ file }: omit<DocIndexJson>) {
     return super.docIndexJson({
       pod_name: this.podName,
@@ -69,6 +84,9 @@ export class DocumentTableClient extends DocumentDBModel {
     });
   }
 
+  /**
+   * Insert the document in the documentDB
+   */
   putDoc({ doc }: omit<DocPut>) {
     return super.docPut({
       pod_name: this.podName,
@@ -77,6 +95,9 @@ export class DocumentTableClient extends DocumentDBModel {
     });
   }
 
+  /**
+   * Get the document from the documentDB given the id
+   */
   getDoc({ id }: omit<DocGet>) {
     return super.docGet({
       pod_name: this.podName,
@@ -85,6 +106,9 @@ export class DocumentTableClient extends DocumentDBModel {
     });
   }
 
+  /**
+   * Delete the document from the documentDB given the id
+   */
   deleteDoc({ id }: omit<DocDelete>) {
     return super.docDelete({
       pod_name: this.podName,

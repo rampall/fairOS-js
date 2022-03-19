@@ -27,6 +27,9 @@ export class FSFileClient extends FSModel {
     this.filePath = join(this.podDir, this.fileName);
   }
 
+  /**
+   * Download the file from the pod tp the local dir
+   */
   download() {
     return super.fsDownloadFile({
       pod_name: this.podName,
@@ -34,6 +37,9 @@ export class FSFileClient extends FSModel {
     });
   }
 
+  /**
+   * Share the file with another user
+   */
   share({ dest_user }: { dest_user: string }) {
     return super.fsShareFile({
       pod_name: this.podName,
@@ -42,6 +48,9 @@ export class FSFileClient extends FSModel {
     });
   }
 
+  /**
+   * Delete the file in the pod
+   */
   delete() {
     return super.fsDeleteFile({
       pod_name: this.podName,
@@ -49,6 +58,9 @@ export class FSFileClient extends FSModel {
     });
   }
 
+  /**
+   * Get the information about the file in the pod
+   */
   stat() {
     return super.fsStatInfo({
       pod_name: this.podName,
