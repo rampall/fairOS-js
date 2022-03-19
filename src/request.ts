@@ -8,6 +8,7 @@ type Config = {
 export abstract class Request {
   protected axiosInstance: AxiosInstance;
   public readonly providerUrl: string;
+  private isNode: boolean;
 
   constructor({ providerUrl, cookies = "" }: Config) {
     this.axiosInstance = axios.create({
@@ -17,12 +18,16 @@ export abstract class Request {
         "Content-type": "application/json",
       },
     });
-    this.axiosInstance.defaults.headers.common["Cookie"] = cookies;
     this.providerUrl = providerUrl;
+    this.isNode = typeof window === "undefined";
+
+    if (this.isNode) {
+      this.axiosInstance.defaults.headers.common["Cookie"] = cookies;
+    }
   }
 
   private setCookies(cookies: string[] | undefined) {
-    if (!cookies) return;
+    if (!cookies || !this.isNode) return;
 
     this.axiosInstance.defaults.headers.common["Cookie"] = cookies[0];
   }
