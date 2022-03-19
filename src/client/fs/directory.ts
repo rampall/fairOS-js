@@ -1,10 +1,9 @@
-import { join } from "path";
-
 import {
   FSReceiveFile,
   FSReceiveFileInfo,
   FSUploadFile,
   FSModel,
+  buildPath,
 } from "../../internal";
 
 type Config = {
@@ -30,7 +29,7 @@ export class FSDirectoryClient extends FSModel {
    * make a new directory inside the directory
    */
   makeDir({ dir_name }: { dir_name: string }) {
-    const dir_path = join(this.path, dir_name);
+    const dir_path = buildPath(this.path, dir_name);
     return super.fsMakeDir({ pod_name: this.podName, dir_path });
   }
 
@@ -38,7 +37,7 @@ export class FSDirectoryClient extends FSModel {
    * open an existing directory inside the directory
    */
   openDir({ dir_name }: { dir_name: string }) {
-    const dir_path = join(this.path, dir_name);
+    const dir_path = buildPath(this.path, dir_name);
     return super.fsOpenDir({ pod_name: this.podName, dir_path });
   }
 
@@ -46,7 +45,7 @@ export class FSDirectoryClient extends FSModel {
    * remove a directory inside the directory
    */
   removeDir({ dir_name }: { dir_name: string }) {
-    const dir_path = join(this.path, dir_name);
+    const dir_path = buildPath(this.path, dir_name);
     return super.fsRemoveDir({ pod_name: this.podName, dir_path });
   }
 
@@ -113,7 +112,7 @@ export class FSDirectoryClient extends FSModel {
    * Download a file from the pod tp the local dir
    */
   downloadFile({ file_name }: { file_name: string }) {
-    const file_path = join(this.path, file_name);
+    const file_path = buildPath(this.path, file_name);
 
     return super.fsDownloadFile({
       pod_name: this.podName,
@@ -131,7 +130,7 @@ export class FSDirectoryClient extends FSModel {
     file_name: string;
     dest_user: string;
   }) {
-    const file_path = join(this.path, file_name);
+    const file_path = buildPath(this.path, file_name);
 
     return super.fsShareFile({
       pod_name: this.podName,
@@ -165,7 +164,7 @@ export class FSDirectoryClient extends FSModel {
    * Delete a file in the directory
    */
   deleteFile({ file_name }: { file_name: string }) {
-    const file_path = join(this.path, file_name);
+    const file_path = buildPath(this.path, file_name);
 
     return super.fsDeleteFile({
       pod_name: this.podName,
@@ -177,7 +176,7 @@ export class FSDirectoryClient extends FSModel {
    * Get the information about a file in the directory
    */
   statInfo({ file_name }: { file_name: string }) {
-    const file_path = join(this.path, file_name);
+    const file_path = buildPath(this.path, file_name);
 
     return super.fsStatInfo({
       pod_name: this.podName,

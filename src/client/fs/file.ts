@@ -1,6 +1,4 @@
-import { FSModel } from "../../internal";
-
-import { join } from "path";
+import { FSModel, buildPath } from "../../internal";
 
 type Config = {
   providerUrl: string;
@@ -24,7 +22,7 @@ export class FSFileClient extends FSModel {
     this.podDir = config.podDir;
     this.fileName = config.fileName;
     this.reference = config.reference;
-    this.filePath = join(this.podDir, this.fileName);
+    this.filePath = buildPath(this.podDir, this.fileName);
   }
 
   /**
