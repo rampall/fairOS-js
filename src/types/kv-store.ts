@@ -103,7 +103,9 @@ export interface KVGetSeekNextResponse {
 export interface KVLoadCSV {
   pod_name: string;
   table_name: string;
-  memory: string;
+  file_buffer: Buffer | Blob;
+  file_name: string;
+  memory?: string;
 }
 
 export interface KVLoadCSVResponse extends BaseResponse {}

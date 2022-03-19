@@ -36,7 +36,7 @@ export interface FSListResponse {
     modification_time: string;
     access_time: string;
   }[];
-  files: {
+  files?: {
     name: string;
     type?: string;
     size: string;
@@ -74,7 +74,8 @@ export interface FSDirStatResponse {
 }
 
 export interface FSUploadFile {
-  file_path: string;
+  file_buffer: Buffer | Blob;
+  file_name: string;
   pod_name: string;
   pod_dir: string;
   block_size: string;

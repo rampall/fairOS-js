@@ -27,6 +27,8 @@ import {
   KVTableClient,
 } from "../internal";
 
+import * as FormData from "form-data";
+
 const resourceName = "kv";
 
 type Config = {
@@ -170,12 +172,28 @@ export class KVStoreModel extends Request {
     });
   }
 
-  protected kvLoadCSV({ pod_name, table_name, memory }: KVLoadCSV) {
-    return this.postRequest<KVLoadCSVResponse>(`${resourceName}/loadcsv`, {
-      pod_name,
-      table_name,
-      memory,
-    });
+  protected kvLoadCSV({
+    pod_name,
+    table_name,
+    file_buffer,
+    file_name,
+    memory,
+  }: KVLoadCSV) {
+    const form = new FormData();
+    form.append("pod_name", pod_name);
+    form.append("table_name", table_name);
+    form.append("csv", file_buffer, file_name);
+    form.append("memory", memory);
+
+    return this.postRequest<KVLoadCSVResponse>(
+      `${resourceName}/loadcsv`,
+      form,
+      {
+        headers: {
+          ...form.getHeaders(),
+        },
+      }
+    );
   }
 
   protected kvKeyPresent({ pod_name, table_name, key }: KVKeyPresent) {

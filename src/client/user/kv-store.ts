@@ -91,10 +91,18 @@ export class UserKVStore extends KVStoreModel {
     });
   }
 
-  kvLoadCSV({ pod_name, table_name, memory }: KVLoadCSV) {
+  kvLoadCSV({
+    pod_name,
+    table_name,
+    file_buffer,
+    file_name,
+    memory,
+  }: KVLoadCSV) {
     return super.kvLoadCSV({
       pod_name,
       table_name,
+      file_buffer,
+      file_name,
       memory,
     });
   }

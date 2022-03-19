@@ -7,7 +7,7 @@ describe("FairOS", () => {
     fairOS = new FairOS({ providerUrl: process.env.FAIROS_API! });
   });
 
-  it("sign up, login user using user_name and password", async () => {
+  it("should sign up, login user using user_name and password", async () => {
     const userName = "test" + new Date().getTime();
     const password = "123456";
 

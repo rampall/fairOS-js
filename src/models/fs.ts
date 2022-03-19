@@ -1,5 +1,4 @@
 import * as FormData from "form-data";
-import { readFileSync } from "fs";
 
 import {
   Request,
@@ -119,7 +118,8 @@ export class FSModel extends Request {
   }
 
   protected async fsUploadFile({
-    file_path,
+    file_buffer,
+    file_name,
     dfs_compression,
     pod_name,
     pod_dir,
@@ -130,10 +130,7 @@ export class FSModel extends Request {
     form.append("dir_path", pod_dir);
     form.append("block_size", block_size);
 
-    const fileName = file_path.split("/").pop();
-    const fileBuffer = readFileSync(file_path);
-
-    form.append("files", fileBuffer, fileName);
+    form.append("files", file_buffer, file_name);
 
     const response = await this.postRequest<FSUploadFileResponse>(
       `${fileResourceName}/upload`,

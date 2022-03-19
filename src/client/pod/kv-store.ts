@@ -94,8 +94,10 @@ export class PodKVStore extends KVStoreModel {
     });
   }
 
-  kvLoadCSV({ table_name, memory }: omit<KVLoadCSV>) {
+  kvLoadCSV({ table_name, file_buffer, file_name, memory }: omit<KVLoadCSV>) {
     return super.kvLoadCSV({
+      file_buffer,
+      file_name,
       pod_name: this.podName,
       table_name,
       memory,

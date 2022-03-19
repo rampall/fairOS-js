@@ -91,10 +91,12 @@ export class KVTableClient extends KVStoreModel {
     });
   }
 
-  loadCSV({ memory }: omit<KVLoadCSV>) {
+  loadCSV({ file_buffer, file_name, memory }: omit<KVLoadCSV>) {
     return super.kvLoadCSV({
       pod_name: this.podName,
       table_name: this.tableName,
+      file_buffer,
+      file_name,
       memory,
     });
   }

@@ -41,14 +41,16 @@ export class UserFS extends FSModel {
   }
 
   async fsUploadFile({
-    file_path,
+    file_buffer,
+    file_name,
     pod_name,
     dfs_compression,
     pod_dir,
     block_size,
   }: FSUploadFile) {
     return super.fsUploadFile({
-      file_path,
+      file_buffer,
+      file_name,
       pod_name,
       pod_dir,
       dfs_compression,

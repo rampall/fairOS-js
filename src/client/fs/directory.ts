@@ -69,9 +69,15 @@ export class FSDirectoryClient extends FSModel {
     });
   }
 
-  uploadFile({ file_path, dfs_compression, block_size }: omit<FSUploadFile>) {
+  uploadFile({
+    file_buffer,
+    file_name,
+    dfs_compression,
+    block_size,
+  }: omit<FSUploadFile>) {
     return super.fsUploadFile({
-      file_path,
+      file_buffer,
+      file_name,
       pod_name: this.podName,
       pod_dir: this.path,
       dfs_compression,
