@@ -1,5 +1,4 @@
 import FairOS from "../src";
-import { readFileSync } from "fs";
 
 describe("FS Directory", () => {
   it("should upload a file", async () => {

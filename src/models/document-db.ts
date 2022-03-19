@@ -25,7 +25,7 @@ import {
   DocumentTableClient,
 } from "../internal";
 
-import * as FormData from "form-data";
+import FormData from "form-data";
 
 const resourceName = "doc";
 

@@ -10,7 +10,8 @@
     "module": "esnext",
     "noEmitOnError": true,
     "lib": ["es2017", "DOM"],
-    "esModuleInterop": false
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src"]
 }
