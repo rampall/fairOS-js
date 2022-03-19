@@ -10,7 +10,7 @@ const config = [
       format: "cjs",
       sourcemap: true,
     },
-    external: ["axios"],
+    external: ["axios", "form-data"],
     plugins: [typescript(), resolve()],
   },
   {

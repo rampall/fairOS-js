@@ -1,6 +1,6 @@
 {
   "name": "fairos-js",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "description": "",
   "scripts": {
     "_clear": "rimraf build/compiled/*",
@@ -48,7 +48,7 @@
     "axios": "^0.26.0",
     "chalk": "^5.0.1",
     "dotenv": "^16.0.0",
-    "fairos-js": "^1.1.0",
+    "fairos-js": "^1.1.4",
     "form-data": "^4.0.0"
   }
 }
