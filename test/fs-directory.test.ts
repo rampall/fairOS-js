@@ -18,10 +18,10 @@ describe("FS Directory", () => {
       dir_path: "/pdf",
     });
 
-    const buf = readFileSync("/home/soheil/Downloads/soheil.png");
+    const buffer = Buffer.from("test file", "utf-8");
     await dir.uploadFile({
-      file_buffer: buf,
-      file_name: "test.png",
+      file_buffer: buffer,
+      file_name: "test.txt",
       dfs_compression: "gzip",
       block_size: "1Mb",
     });

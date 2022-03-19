@@ -61,6 +61,15 @@ const sameDir = await user.fsMakeDir({
     dir_path: "test_dir"
 }) 
 
+//upload a file
+const buffer = Buffer.from("test file", "utf-8")
+
+const file = await dir.uploadFile({
+      file_buffer: buffer,
+      file_name: "test.txt",
+      dfs_compression: "gzip",
+      block_size: "1Mb",
+    });
 ```
 
 
