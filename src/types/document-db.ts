@@ -66,6 +66,8 @@ export interface DocFindResponse {
 export interface DocLoadJson {
   pod_name: string;
   table_name: string;
+  file_buffer: Buffer | Blob;
+  file_name: string;
 }
 
 export interface DocLoadJsonResponse extends BaseResponse {}

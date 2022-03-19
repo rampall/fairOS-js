@@ -6,6 +6,7 @@ import {
   DocGet,
   DocIndexJson,
   DocPut,
+  DocLoadJson,
 } from "../../internal";
 
 type Config = {
@@ -51,10 +52,12 @@ export class DocumentTableClient extends DocumentDBModel {
     });
   }
 
-  loadJson() {
+  loadJson({ file_buffer, file_name }: omit<DocLoadJson>) {
     return super.docLoadJson({
       pod_name: this.podName,
       table_name: this.tableName,
+      file_buffer,
+      file_name,
     });
   }
 

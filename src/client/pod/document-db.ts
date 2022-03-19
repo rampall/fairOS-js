@@ -63,10 +63,12 @@ export class PodDocumentDB extends DocumentDBModel {
     });
   }
 
-  docLoadJson({ table_name }: omit<DocLoadJson>) {
+  docLoadJson({ file_buffer, file_name, table_name }: omit<DocLoadJson>) {
     return super.docLoadJson({
       pod_name: this.podName,
       table_name,
+      file_buffer,
+      file_name,
     });
   }
 

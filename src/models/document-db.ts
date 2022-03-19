@@ -25,6 +25,8 @@ import {
   DocumentTableClient,
 } from "../internal";
 
+import * as FormData from "form-data";
+
 const resourceName = "doc";
 
 type Config = {
@@ -126,11 +128,26 @@ export class DocumentDBModel extends Request {
     });
   }
 
-  protected docLoadJson({ pod_name, table_name }: DocLoadJson) {
-    return this.postRequest<DocLoadJsonResponse>(`${resourceName}/loadjson`, {
-      pod_name,
-      table_name,
-    });
+  protected docLoadJson({
+    pod_name,
+    table_name,
+    file_buffer,
+    file_name,
+  }: DocLoadJson) {
+    const form = new FormData();
+    form.append("pod_name", pod_name);
+    form.append("table_name", table_name);
+    form.append("json", file_buffer, file_name);
+
+    return this.postRequest<DocLoadJsonResponse>(
+      `${resourceName}/loadjson`,
+      form,
+      {
+        headers: {
+          ...form.getHeaders(),
+        },
+      }
+    );
   }
 
   protected docIndexJson({ pod_name, table_name, file }: DocIndexJson) {

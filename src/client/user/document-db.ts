@@ -60,10 +60,12 @@ export class UserDocumentDB extends DocumentDBModel {
     });
   }
 
-  docLoadJson({ pod_name, table_name }: DocLoadJson) {
+  docLoadJson({ file_buffer, file_name, pod_name, table_name }: DocLoadJson) {
     return super.docLoadJson({
       pod_name,
       table_name,
+      file_buffer,
+      file_name,
     });
   }
 
