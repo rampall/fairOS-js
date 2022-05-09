@@ -118,8 +118,8 @@ export class DocumentDBModel extends Request {
   }
 
   protected docFind({ pod_name, table_name, expr, limit }: DocFind) {
-    return this.deleteRequest<DocFindResponse>(`${resourceName}/find`, {
-      data: {
+    return this.getRequest<DocFindResponse>(`${resourceName}/find`, {
+      params: {
         pod_name,
         table_name,
         expr,
