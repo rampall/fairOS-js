@@ -125,7 +125,7 @@ export class PodModel extends Request {
 
   protected podStat({ pod_name }: PodStat) {
     return this.getRequest<PodStatResponse>(`${resourceName}/stat`, {
-      data: {
+      params: {
         pod_name,
       },
     });
@@ -133,7 +133,7 @@ export class PodModel extends Request {
 
   protected podPresent({ pod_name }: PodPresent) {
     return this.getRequest<PodPresentResponse>(`${resourceName}/present`, {
-      data: {
+      params: {
         pod_name,
       },
     });
